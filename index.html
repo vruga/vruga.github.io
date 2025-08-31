@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vruga.site - Personal Portfolio</title>
+    <title>Vrushtee Gaikwad</title>
+    <meta name="description" content="Vrushtee's personal website - Electronics Engineering & Robotics" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #fafafa;
+            --text: #2d2d2d;
+            --accent: #0066cc;
+            --secondary: #666;
+            --border: #e0e0e0;
+            --highlight: #f5f5f5;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,442 +25,509 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        header {
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        header {
-            text-align: center;
-            padding: 60px 0;
-            color: white;
+        .identity {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin: 0 auto 30px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid var(--text);
+            background: linear-gradient(135deg, var(--accent), #4a9eff);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tagline {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .social-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
             text-decoration: none;
-            transition: all 0.3s ease;
+            color: var(--secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
         }
 
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
         }
 
-        .main-content {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin-bottom: 40px;
+        main {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section {
-            padding: 60px;
+            margin-bottom: 3rem;
         }
 
-        .section:nth-child(even) {
-            background: linear-gradient(45deg, #f8f9ff 0%, #f0f4ff 100%);
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
         }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: #667eea;
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .hover-term {
             position: relative;
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 500;
+            cursor: help;
+            border-bottom: 1px dotted var(--accent);
         }
 
-        h2::after {
-            content: '';
+        .hover-term:hover::after {
+            content: attr(data-tooltip);
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 2px;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text);
+            color: white;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 100;
+            margin-bottom: 5px;
         }
 
-        .skills-grid {
+        .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .skill-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            border-left: 4px solid #667eea;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
         .project-card {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
             background: white;
-            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
             transition: transform 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateX(5px);
+            box-shadow: -5px 5px 15px rgba(0,0,0,0.1);
         }
 
-        .project-img {
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 30px;
+        .project-card:hover::before {
+            transform: scaleY(1);
         }
 
         .project-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
         }
 
-        .contact-form {
+        .project-tech {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .skills-grid {
             display: grid;
-            gap: 20px;
-            max-width: 600px;
-            margin: 40px auto 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .form-group {
+        .skill-category {
+            background: var(--highlight);
+            padding: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .skill-category h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .skill-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .skill-list li {
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline {
+            margin-top: 1rem;
+        }
+
+        .timeline-item {
             display: flex;
-            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        label {
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
+        .timeline-item:last-child {
+            border-bottom: none;
         }
 
-        input, textarea {
-            padding: 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            min-width: 80px;
         }
 
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .timeline-content h4 {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
         }
 
-        textarea {
-            min-height: 120px;
-            resize: vertical;
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--secondary);
         }
 
-        .submit-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+        .contact-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-link {
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--accent);
             color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            border-color: var(--accent);
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        .current-status {
+            background: var(--highlight);
+            padding: 1rem;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 2rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: white;
-            opacity: 0.8;
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .section { padding: 30px 20px; }
-            .social-links { flex-wrap: wrap; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        .typing-animation {
-            border-right: 2px solid white;
-            animation: blink 1s infinite;
-        }
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
 
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="profile-img">👨‍💻</div>
-            <h1>Welcome to vruga.site</h1>
-            <p class="tagline">
-                <span id="typed-text">Creative Developer & Digital Artist</span>
-                <span class="typing-animation"></span>
-            </p>
-            <div class="social-links">
-                <a href="#" class="social-btn">📧 Email</a>
-                <a href="#" class="social-btn">💼 LinkedIn</a>
-                <a href="#" class="social-btn">🐙 GitHub</a>
-                <a href="#" class="social-btn">🐦 Twitter</a>
-            </div>
-        </header>
+    <header>
+        <div class="identity">
+            <div class="profile-img">VG</div>
+            <h1 class="name">Vrushtee Gaikwad</h1>
+        </div>
+        <nav>
+            <a href="#about" class="nav-link active">About</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
 
-        <div class="main-content">
-            <section class="section">
-                <h2>About Me</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8; color: #555;">
-                    Welcome to my digital space! I'm passionate about creating innovative solutions and bringing ideas to life through code and creativity. With a focus on modern web technologies and user experience, I love turning complex problems into elegant, simple designs.
-                </p>
-                <p style="font-size: 1.1rem; line-height: 1.8; color: #666; margin-top: 20px;">
-                    When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe in the power of collaboration and continuous learning.
-                </p>
-            </section>
-
-            <section class="section">
-                <h2>Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3>🎨 Frontend Development</h3>
-                        <p>React, Vue.js, HTML5, CSS3, JavaScript, TypeScript, and modern frameworks for creating responsive and interactive user interfaces.</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>⚙️ Backend Development</h3>
-                        <p>Node.js, Python, API design, database management, and server-side architecture for scalable web applications.</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🎯 UI/UX Design</h3>
-                        <p>User-centered design, prototyping, wireframing, and creating intuitive digital experiences that users love.</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🚀 DevOps & Tools</h3>
-                        <p>Git, Docker, CI/CD, cloud platforms, and development tools for efficient project delivery and deployment.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2>Featured Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-img">🌐</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Web Application</h3>
-                            <p>A full-stack web application built with modern technologies, featuring real-time updates and responsive design.</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-img">📱</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Mobile App</h3>
-                            <p>Cross-platform mobile application with sleek UI and seamless user experience across all devices.</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-img">🎨</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Design System</h3>
-                            <p>Comprehensive design system and component library for consistent brand experience across products.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2>Get In Touch</h2>
-                <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 40px;">
-                    Have a project in mind? Let's work together to bring your ideas to life!
-                </p>
-                <form class="contact-form" onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message 🚀</button>
-                </form>
-            </section>
+    <main>
+        <div class="current-status">
+            <span class="status-indicator"></span>
+            <strong>Currently:</strong> Second-year Electronics Engineering @ VJTI, exploring the intersection of AI and robotics
         </div>
 
-        <footer>
-            <p>&copy; 2025 vruga.site - Built with passion and code ❤️</p>
-        </footer>
-    </div>
+        <section class="section" id="about">
+            <h2 class="section-title">Hello!</h2>
+            <div class="intro">
+                I'm <span class="highlight">Vrushtee</span>, a second-year Electronics Engineering student at 
+                <span class="hover-term" data-tooltip="Veermata Jijabai Technological Institute">VJTI</span>. 
+                I'm passionate about <span class="highlight">robotics</span> and have recently started discovering 
+                the fascinating world of <span class="hover-term" data-tooltip="Making robots learn through trial and error">reinforcement learning</span> 
+                and <span class="hover-term" data-tooltip="Transferring learning from simulation to real world">sim-to-real</span> pipelines.
+            </div>
+            
+            <p>
+                What excites me most is building systems that can learn and adapt. I believe robotics is where 
+                the magic happens when you combine hardware engineering with intelligent algorithms.
+            </p>
+        </section>
+
+        <section class="section" id="projects">
+            <h2 class="section-title">Recent Work</h2>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-tech">Reinforcement Learning • Robotics • PPO</div>
+                    <h3 class="project-title">SO100 Robotic Arm - Cube Picking</h3>
+                    <p>
+                        Implemented <span class="hover-term" data-tooltip="Proximal Policy Optimization - a reinforcement learning algorithm">PPO algorithm</span> 
+                        to train a 6-DOF robotic arm to pick up cubes. The robot learns through a simple reward function 
+                        in simulation, then successfully transfers to real hardware through our sim-to-real pipeline.
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-tech">Machine Learning • Algorithm Development • Research</div>
+                    <h3 class="project-title">FPO Algorithm Implementation</h3>
+                    <p>
+                        After the success of PPO, I developed and implemented an 
+                        <span class="hover-term" data-tooltip="A variant of reinforcement learning algorithm">FPO algorithm</span> 
+                        for the same cube-picking task. This project deepened my understanding of RL algorithm variations 
+                        and optimization techniques.
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-tech">Sim2Real • Pipeline Development • Robotics</div>
+                    <h3 class="project-title">Sim-to-Real Pipeline</h3>
+                    <p>
+                        Built a robust pipeline that allows robots to train entirely in simulation and then perform 
+                        successfully on real hardware. The seamless transition from virtual to physical environments 
+                        is something I'm particularly proud of.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Skills & Learning</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Robotics & AI</h4>
+                    <ul class="skill-list">
+                        <li>Reinforcement Learning</li>
+                        <li>PPO/FPO Algorithms</li>
+                        <li>Sim-to-Real Transfer</li>
+                        <li>6-DOF Manipulation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Engineering</h4>
+                    <ul class="skill-list">
+                        <li>Electronics Engineering</li>
+                        <li>Hardware Integration</li>
+                        <li>Control Systems</li>
+                        <li>System Design</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Programming</h4>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>Machine Learning</li>
+                        <li>Simulation Environments</li>
+                        <li>Algorithm Implementation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h4>FPO Algorithm Development</h4>
+                        <p>Extended my RL work by implementing FPO algorithm for robotic manipulation tasks</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h4>First Major Robotics Project</h4>
+                        <p>Successfully implemented PPO for SO100 arm cube-picking with sim-to-real transfer</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h4>Started at VJTI</h4>
+                        <p>Began Electronics Engineering journey and discovered passion for robotics</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <h2 class="section-title">Get in Touch</h2>
+            <p>
+                I'm always excited to discuss robotics, reinforcement learning, or collaborate on interesting projects. 
+                Feel free to reach out!
+            </p>
+            <div class="contact-links">
+                <a href="mailto:vrushtee@example.com" class="contact-link">Email</a>
+                <a href="#" class="contact-link">LinkedIn</a>
+                <a href="#" class="contact-link">GitHub</a>
+                <a href="#" class="contact-link">Twitter</a>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Typing animation
-        const phrases = [
-            "Creative Developer & Digital Artist",
-            "Full Stack Web Developer",
-            "UI/UX Design Enthusiast",
-            "Problem Solver & Innovator"
-        ];
-        
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typedTextElement = document.getElementById('typed-text');
-        
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typedTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                setTimeout(() => isDeleting = true, 1000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-            }
-            
-            const typingSpeed = isDeleting ? 50 : 100;
-            setTimeout(typeWriter, typingSpeed);
-        }
-        
-        // Start typing animation
-        setTimeout(typeWriter, 1000);
-        
-        // Form submission
-        function handleSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData);
-            
-            // Simulate form submission
-            const submitBtn = event.target.querySelector('.submit-btn');
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Thank you for your message! I\'ll get back to you soon.');
-                event.target.reset();
-                submitBtn.textContent = 'Send Message 🚀';
-                submitBtn.disabled = false;
-            }, 1500);
-        }
-        
-        // Smooth scrolling for navigation
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
-        
-        // Add scroll animations
+
+        // Update active nav link based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add entrance animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -456,9 +536,9 @@
                 }
             });
         }, observerOptions);
-        
-        // Observe all sections
-        document.querySelectorAll('.section, .skill-card, .project-card').forEach(el => {
+
+        // Observe all project cards and timeline items
+        document.querySelectorAll('.project-card, .timeline-item, .skill-category').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
