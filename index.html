@@ -207,6 +207,24 @@
             margin-bottom: 0.8rem;
         }
 
+        .project-media {
+            margin-top: 1rem;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .project-media img,
+        .project-media video {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .project-media-full {
+            grid-column: 1 / -1;
+        }
+
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -360,12 +378,16 @@
         <section class="section" id="about">
             <h2 class="section-title">Hello!</h2>
             <div class="intro">
-                I'm <span class="highlight">Vrushtee</span>, a second-year Electronics Engineering student at 
-                <span class="hover-term" data-tooltip="Veermata Jijabai Technological Institute">VJTI</span>. 
-                I'm passionate about <span class="highlight">robotics</span> and have recently started discovering 
-                the fascinating world of <span class="hover-term" data-tooltip="Making robots learn through trial and error">reinforcement learning</span> 
+                I'm <span class="highlight">Vrushtee</span>, a second-year Electronics Engineering student at
+                <span class="hover-term" data-tooltip="Veermata Jijabai Technological Institute">VJTI</span>.
+                I'm passionate about <span class="highlight">robotics</span> and have recently started discovering
+                the fascinating world of <span class="hover-term" data-tooltip="Making robots learn through trial and error">reinforcement learning</span>
                 and <span class="hover-term" data-tooltip="Transferring learning from simulation to real world">sim-to-real</span> pipelines.
             </div>
+
+            <p style="font-style: italic; color: var(--secondary); margin-top: 1rem;">
+                chasing asymmetric returns
+            </p>
             
             <p>
                 What excites me most is building systems that can learn and adapt. I believe robotics is where 
@@ -381,10 +403,15 @@
                     <div class="project-tech">Reinforcement Learning • Robotics • PPO</div>
                     <h3 class="project-title">SO100 Robotic Arm - Cube Picking</h3>
                     <p>
-                        Implemented <span class="hover-term" data-tooltip="Proximal Policy Optimization - a reinforcement learning algorithm">PPO algorithm</span> 
-                        to train a 6-DOF robotic arm to pick up cubes. The robot learns through a simple reward function 
+                        Implemented <span class="hover-term" data-tooltip="Proximal Policy Optimization - a reinforcement learning algorithm">PPO algorithm</span>
+                        to train a 6-DOF robotic arm to pick up cubes. The robot learns through a simple reward function
                         in simulation, then successfully transfers to real hardware through our sim-to-real pipeline.
                     </p>
+                    <div class="project-media">
+                        <img src="assets/rlffp/ppo_simulation.gif" alt="PPO Simulation">
+                        <img src="assets/rlffp/ppo_sim2real.gif" alt="PPO Sim-to-Real">
+                        <img src="assets/rlffp/ppo_evalrewards.png" alt="PPO Evaluation Rewards" class="project-media-full">
+                    </div>
                 </div>
 
                 <div class="project-card">
