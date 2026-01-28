@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vrushtee Gaikwad</title>
-    <meta name="description" content="Vrushtee's personal website - Electronics Engineering & Robotics" />
+    <title>Vrushtee — vruga.site</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fafafa;
-            --text: #2d2d2d;
-            --accent: #0066cc;
-            --secondary: #666;
-            --border: #e0e0e0;
-            --highlight: #f5f5f5;
+            --deep-red: #8B0000;
+            --medium-red: #C41E3A;
+            --warm-yellow: #FFB000;
+            --light-cream: #FFF9F0;
+            --text-dark: #1a1a1a;
         }
 
         * {
@@ -25,491 +23,632 @@
         }
 
         body {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            background-image: 
-                radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
-            background-size: 20px 20px;
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, var(--light-cream) 0%, #FFFBF5 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
+        /* Aurora Canvas */
+        #aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        /* Butterfly & Sunflower Canvas */
+        #butterfly-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, var(--warm-yellow) 0%, transparent 70%);
+            opacity: 0.08;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, var(--medium-red) 0%, transparent 70%);
+            opacity: 0.06;
+            z-index: -1;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 32px 80px;
+            position: relative;
+        }
+
+        /* Header / Greeting */
+        .greeting {
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--deep-red);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        /* Name */
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--deep-red) 0%, var(--medium-red) 50%, var(--warm-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        /* Location */
+        .location {
+            font-size: 16px;
+            color: var(--medium-red);
+            margin-bottom: 56px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        /* Bio content */
+        .bio {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .bio:last-of-type {
+            margin-bottom: 64px;
+        }
+
+        .bio strong {
+            color: var(--deep-red);
+            font-weight: 500;
+        }
+
+        /* Accent line */
+        .accent-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--deep-red), var(--warm-yellow));
+            margin: 64px 0;
+            opacity: 0;
+            animation: expandWidth 1.5s ease 0.8s forwards;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 80px;
+                opacity: 1;
+            }
+        }
+
+        /* Sections Navigation */
+        .sections-nav {
+            margin-top: 80px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .sections-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .sections-nav li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .sections-nav h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .sections-nav p {
+            font-size: 13px;
+            color: var(--medium-red);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sections-nav li {
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .sections-nav li::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--deep-red), var(--warm-yellow));
+            transition: width 0.3s ease;
+        }
+
+        .sections-nav li:hover h3 {
+            color: var(--deep-red);
+        }
+
+        .sections-nav li:hover::after {
+            width: 100%;
+        }
+
+        /* Header Navigation */
         header {
-            border-bottom: 2px solid var(--text);
-            padding-bottom: 1.5rem;
-            margin-bottom: 2.5rem;
+            padding: 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .identity {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .profile-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid var(--text);
-            background: linear-gradient(135deg, var(--accent), #4a9eff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-link {
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--deep-red);
             text-decoration: none;
-            color: var(--secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
+        .header-nav {
+            display: flex;
+            gap: 32px;
         }
 
-        main {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .intro {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .highlight {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .hover-term {
+        .header-nav a {
+            font-size: 15px;
+            font-weight: 400;
+            text-decoration: none;
+            color: var(--text-dark);
             position: relative;
-            display: inline-block;
-            color: var(--accent);
-            font-weight: 500;
-            cursor: help;
-            border-bottom: 1px dotted var(--accent);
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
-        .hover-term:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--text);
-            color: white;
-            padding: 0.5rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            z-index: 100;
-            margin-bottom: 5px;
-        }
-
-        .project-grid {
-            display: grid;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .project-card {
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            background: white;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
+        .header-nav a::after {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: -4px;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--accent);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--deep-red), var(--warm-yellow));
+            transition: width 0.3s ease;
         }
 
-        .project-card:hover {
-            transform: translateX(5px);
-            box-shadow: -5px 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .project-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .project-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-
-        .project-tech {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
-        }
-
-        .project-media {
-            margin-top: 1rem;
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-
-        .project-media img,
-        .project-media video {
+        .header-nav a:hover::after {
             width: 100%;
-            border: 1px solid var(--border);
-            border-radius: 4px;
         }
 
-        .project-media-full {
-            grid-column: 1 / -1;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .skill-category {
-            background: var(--highlight);
-            padding: 1rem;
-            border-left: 3px solid var(--accent);
-        }
-
-        .skill-category h4 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-
-        .skill-list {
-            list-style: none;
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .skill-list li {
-            margin-bottom: 0.2rem;
-        }
-
-        .timeline {
-            margin-top: 1rem;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        .timeline-date {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            min-width: 80px;
-        }
-
-        .timeline-content h4 {
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-
-        .timeline-content p {
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .contact-link {
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .contact-link:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .current-status {
-            background: var(--highlight);
-            padding: 1rem;
-            border-left: 4px solid var(--accent);
-            margin-bottom: 2rem;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #22c55e;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-            
+        /* Responsive */
+        @media (max-width: 640px) {
             header {
                 flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-            }
-            
-            nav {
-                width: 100%;
-                justify-content: space-between;
+                gap: 24px;
+                padding: 24px;
             }
 
-            .skills-grid {
-                grid-template-columns: 1fr;
+            .header-nav {
+                gap: 24px;
+            }
+
+            .container {
+                padding: 40px 24px 60px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .bio {
+                font-size: 17px;
+            }
+
+            .sections-nav ul {
+                flex-direction: column;
+                gap: 28px;
             }
         }
     </style>
 </head>
 <body>
+    <canvas id="aurora"></canvas>
+    <canvas id="butterfly-canvas"></canvas>
+
     <header>
-        <div class="identity">
-            <div class="profile-img">VG</div>
-            <h1 class="name">Vrushtee Gaikwad</h1>
-        </div>
-        <nav>
-            <a href="#about" class="nav-link active">About</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#contact" class="nav-link">Contact</a>
+        <a href="/" class="logo">Vrushtee</a>
+        <nav class="header-nav">
+            <a href="/wonder">Wonder</a>
+            <a href="/work">Work</a>
+            <a href="/imagine">Imagine</a>
         </nav>
     </header>
 
-    <main>
-        <div class="current-status">
-            <span class="status-indicator"></span>
-            <strong>Currently:</strong> Second-year Electronics Engineering @ VJTI, exploring the intersection of AI and robotics
-        </div>
+    <div class="container">
+        <div class="greeting">Welcome</div>
 
-        <section class="section" id="about">
-            <h2 class="section-title">Hello!</h2>
-            <div class="intro">
-                I'm <span class="highlight">Vrushtee</span>, a second-year Electronics Engineering student at
-                <span class="hover-term" data-tooltip="Veermata Jijabai Technological Institute">VJTI</span>.
-                I'm passionate about <span class="highlight">robotics</span> and have recently started discovering
-                the fascinating world of <span class="hover-term" data-tooltip="Making robots learn through trial and error">reinforcement learning</span>
-                and <span class="hover-term" data-tooltip="Transferring learning from simulation to real world">sim-to-real</span> pipelines.
-            </div>
+        <h1>I am Vrushtee.</h1>
 
-            <p style="font-style: italic; color: var(--secondary); margin-top: 1rem;">
-                chasing asymmetric returns
-            </p>
-            
-            <p>
-                What excites me most is building systems that can learn and adapt. I believe robotics is where 
-                the magic happens when you combine hardware engineering with intelligent algorithms.
-            </p>
-        </section>
+        <p class="location">Mumbai, India</p>
 
-        <section class="section" id="projects">
-            <h2 class="section-title">Recent Work</h2>
-            
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-tech">Reinforcement Learning • Robotics • PPO</div>
-                    <h3 class="project-title">SO100 Robotic Arm - Cube Picking</h3>
-                    <p>
-                        Implemented <span class="hover-term" data-tooltip="Proximal Policy Optimization - a reinforcement learning algorithm">PPO algorithm</span>
-                        to train a 6-DOF robotic arm to pick up cubes. The robot learns through a simple reward function
-                        in simulation, then successfully transfers to real hardware through our sim-to-real pipeline.
-                    </p>
-                    <div class="project-media">
-                        <img src="assets/rlffp/ppo_simulation.gif" alt="PPO Simulation">
-                        <img src="assets/rlffp/ppo_sim2real.gif" alt="PPO Sim-to-Real">
-                        <img src="assets/rlffp/ppo_evalrewards.png" alt="PPO Evaluation Rewards" class="project-media-full">
-                    </div>
-                </div>
+        <div class="accent-line"></div>
 
-                <div class="project-card">
-                    <div class="project-tech">Machine Learning • Algorithm Development • Research</div>
-                    <h3 class="project-title">FPO Algorithm Implementation</h3>
-                    <p>
-                        After the success of PPO, I developed and implemented an 
-                        <span class="hover-term" data-tooltip="A variant of reinforcement learning algorithm">FPO algorithm</span> 
-                        for the same cube-picking task. This project deepened my understanding of RL algorithm variations 
-                        and optimization techniques.
-                    </p>
-                </div>
+        <p class="bio">
+            My life recently has been a lot of <strong>robotics</strong>. I love to learn and to make robots learn.
+        </p>
 
-                <div class="project-card">
-                    <div class="project-tech">Sim2Real • Pipeline Development • Robotics</div>
-                    <h3 class="project-title">Sim-to-Real Pipeline</h3>
-                    <p>
-                        Built a robust pipeline that allows robots to train entirely in simulation and then perform 
-                        successfully on real hardware. The seamless transition from virtual to physical environments 
-                        is something I'm particularly proud of.
-                    </p>
-                </div>
-            </div>
-        </section>
+        <p class="bio">
+            3D printed pieces put together with servos, cameras, and a lot of experimental models that rarely work.
+        </p>
 
-        <section class="section" id="contact">
-            <h2 class="section-title">Get in Touch</h2>
-            <p>
-                I'm always excited to discuss robotics, reinforcement learning, or collaborate on interesting projects. 
-                Feel free to reach out!
-            </p>
-            <div class="contact-links">
-                <a href="mailto:vagaikwad_b24@el.vjti.ac.in" class="contact-link">Email</a>
-                <a href="https://github.com/vruga" class="contact-link" target="_blank">GitHub</a>
-                <a href="https://x.com/VrushteeGaikwad" class="contact-link" target="_blank">Twitter</a>
-            </div>
-        </section>
-    </main>
+        <p class="bio">
+            Striving to optimize life. Striving to create, to bring ideas to real life.
+        </p>
+
+        <p class="bio">
+            Creating is about making asymmetric pieces spring into action—things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
+        </p>
+
+        <nav class="sections-nav">
+            <ul>
+                <li>
+                    <a href="/wonder">
+                        <h3>Wonder</h3>
+                        <p>Curiosities</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/work">
+                        <h3>Work</h3>
+                        <p>Projects</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/imagine">
+                        <h3>Imagine</h3>
+                        <p>Ideas</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Northern Lights Animation
+        const auroraCanvas = document.getElementById('aurora');
+        const auroraCtx = auroraCanvas.getContext('2d');
 
-        // Update active nav link based on scroll position
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
+        function resizeAurora() {
+            auroraCanvas.width = window.innerWidth;
+            auroraCanvas.height = window.innerHeight;
+        }
+        resizeAurora();
+        window.addEventListener('resize', resizeAurora);
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+        class AuroraWave {
+            constructor(baseY, amplitude, frequency, speed, color) {
+                this.baseY = baseY;
+                this.amplitude = amplitude;
+                this.frequency = frequency;
+                this.speed = speed;
+                this.color = color;
+                this.offset = Math.random() * Math.PI * 2;
+            }
 
-        // Add entrance animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            draw(time) {
+                auroraCtx.beginPath();
+
+                for (let x = 0; x <= auroraCanvas.width; x += 2) {
+                    const y = this.baseY +
+                             Math.sin(x * this.frequency + time * this.speed + this.offset) * this.amplitude +
+                             Math.sin(x * this.frequency * 0.5 + time * this.speed * 1.3) * this.amplitude * 0.5;
+
+                    if (x === 0) {
+                        auroraCtx.moveTo(x, y);
+                    } else {
+                        auroraCtx.lineTo(x, y);
+                    }
+                }
+
+                auroraCtx.lineTo(auroraCanvas.width, auroraCanvas.height);
+                auroraCtx.lineTo(0, auroraCanvas.height);
+                auroraCtx.closePath();
+
+                const gradient = auroraCtx.createLinearGradient(0, this.baseY - this.amplitude * 2, 0, this.baseY + this.amplitude * 3);
+                gradient.addColorStop(0, this.color.replace('ALPHA', '0'));
+                gradient.addColorStop(0.3, this.color.replace('ALPHA', '0.15'));
+                gradient.addColorStop(0.6, this.color.replace('ALPHA', '0.08'));
+                gradient.addColorStop(1, this.color.replace('ALPHA', '0'));
+
+                auroraCtx.fillStyle = gradient;
+                auroraCtx.fill();
+            }
+        }
+
+        const waves = [
+            new AuroraWave(auroraCanvas.height * 0.3, 60, 0.003, 0.0008, 'rgba(139, 0, 0, ALPHA)'),
+            new AuroraWave(auroraCanvas.height * 0.25, 80, 0.002, 0.0006, 'rgba(196, 30, 58, ALPHA)'),
+            new AuroraWave(auroraCanvas.height * 0.35, 70, 0.0025, 0.0007, 'rgba(255, 176, 0, ALPHA)'),
+            new AuroraWave(auroraCanvas.height * 0.4, 50, 0.004, 0.0009, 'rgba(139, 0, 0, ALPHA)'),
+            new AuroraWave(auroraCanvas.height * 0.2, 90, 0.0015, 0.0005, 'rgba(255, 176, 0, ALPHA)')
+        ];
+
+        function animateAurora() {
+            auroraCtx.clearRect(0, 0, auroraCanvas.width, auroraCanvas.height);
+            const time = Date.now() * 0.001;
+            waves.forEach(wave => wave.draw(time));
+            requestAnimationFrame(animateAurora);
+        }
+
+        animateAurora();
+
+        // Butterfly & Sunflower Animation
+        const butterflyCanvas = document.getElementById('butterfly-canvas');
+        const ctx = butterflyCanvas.getContext('2d');
+
+        function resizeButterfly() {
+            butterflyCanvas.width = window.innerWidth;
+            butterflyCanvas.height = window.innerHeight;
+        }
+        resizeButterfly();
+        window.addEventListener('resize', resizeButterfly);
+
+        const sunflowerX = () => butterflyCanvas.width - 120;
+        const sunflowerY = () => butterflyCanvas.height - 120;
+
+        function drawSunflower(x, y) {
+            const centerRadius = 20;
+            const petalLength = 28;
+            const numPetals = 12;
+
+            // Petals
+            for (let i = 0; i < numPetals; i++) {
+                const angle = (i / numPetals) * Math.PI * 2;
+                const petalX = x + Math.cos(angle) * centerRadius;
+                const petalY = y + Math.sin(angle) * centerRadius;
+
+                ctx.save();
+                ctx.translate(petalX, petalY);
+                ctx.rotate(angle);
+
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 7, petalLength, 0, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFB000';
+                ctx.fill();
+                ctx.strokeStyle = '#D49500';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            // Center
+            const centerGradient = ctx.createRadialGradient(x, y, 0, x, y, centerRadius);
+            centerGradient.addColorStop(0, '#8B0000');
+            centerGradient.addColorStop(0.7, '#C41E3A');
+            centerGradient.addColorStop(1, '#8B0000');
+
+            ctx.beginPath();
+            ctx.arc(x, y, centerRadius, 0, Math.PI * 2);
+            ctx.fillStyle = centerGradient;
+            ctx.fill();
+
+            // Seeds pattern
+            for (let i = 0; i < 15; i++) {
+                const spiralAngle = i * 0.6;
+                const spiralRadius = i * 1.1;
+                const sx = x + Math.cos(spiralAngle) * spiralRadius;
+                const sy = y + Math.sin(spiralAngle) * spiralRadius;
+
+                ctx.beginPath();
+                ctx.arc(sx, sy, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fill();
+            }
+
+            // Stem
+            ctx.strokeStyle = '#6B8E23';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(x, y + centerRadius);
+            ctx.quadraticCurveTo(x - 8, y + 50, x - 5, y + 80);
+            ctx.stroke();
+        }
+
+        // Butterfly
+        const butterfly = {
+            x: sunflowerX(),
+            y: sunflowerY() - 60,
+            angle: 0,
+            wingAngle: 0,
+            orbitAngle: 0,
+            orbitRadius: 50,
+            hovering: true,
+            hoverTime: 0
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        function drawButterfly(x, y, wingAngle, rotation) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
 
-        // Observe all project cards and timeline items
-        document.querySelectorAll('.project-card, .timeline-item, .skill-category').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+            const wingFlap = Math.sin(wingAngle) * 0.4;
+
+            // Left wing
+            ctx.save();
+            ctx.scale(1, 1 + wingFlap);
+            ctx.beginPath();
+            ctx.ellipse(-12, -5, 18, 12, -0.3, 0, Math.PI * 2);
+            ctx.fillStyle = '#C41E3A';
+            ctx.fill();
+            ctx.strokeStyle = '#8B0000';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Wing pattern
+            ctx.beginPath();
+            ctx.arc(-14, -6, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFB000';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(-8, -2, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFB000';
+            ctx.fill();
+            ctx.restore();
+
+            // Right wing
+            ctx.save();
+            ctx.scale(1, 1 + wingFlap);
+            ctx.beginPath();
+            ctx.ellipse(12, -5, 18, 12, 0.3, 0, Math.PI * 2);
+            ctx.fillStyle = '#C41E3A';
+            ctx.fill();
+            ctx.strokeStyle = '#8B0000';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Wing pattern
+            ctx.beginPath();
+            ctx.arc(14, -6, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFB000';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(8, -2, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFB000';
+            ctx.fill();
+            ctx.restore();
+
+            // Body
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 3, 12, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#8B0000';
+            ctx.fill();
+
+            // Antennae
+            ctx.strokeStyle = '#8B0000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(-2, -10);
+            ctx.quadraticCurveTo(-6, -18, -8, -20);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(2, -10);
+            ctx.quadraticCurveTo(6, -18, 8, -20);
+            ctx.stroke();
+
+            // Antennae tips
+            ctx.beginPath();
+            ctx.arc(-8, -20, 2, 0, Math.PI * 2);
+            ctx.arc(8, -20, 2, 0, Math.PI * 2);
+            ctx.fillStyle = '#8B0000';
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function animateButterfly() {
+            ctx.clearRect(0, 0, butterflyCanvas.width, butterflyCanvas.height);
+
+            const sfX = sunflowerX();
+            const sfY = sunflowerY();
+
+            drawSunflower(sfX, sfY);
+
+            // Update butterfly
+            butterfly.wingAngle += 0.15;
+            butterfly.hoverTime += 0.02;
+
+            if (butterfly.hovering) {
+                // Hover near the sunflower
+                butterfly.orbitAngle += 0.008;
+                const hoverX = sfX + Math.cos(butterfly.orbitAngle) * butterfly.orbitRadius;
+                const hoverY = sfY - 40 + Math.sin(butterfly.orbitAngle * 2) * 20;
+
+                butterfly.x += (hoverX - butterfly.x) * 0.03;
+                butterfly.y += (hoverY - butterfly.y) * 0.03;
+
+                // Gentle floating
+                butterfly.x += Math.sin(butterfly.hoverTime * 1.5) * 0.3;
+                butterfly.y += Math.cos(butterfly.hoverTime * 1.2) * 0.2;
+            }
+
+            // Calculate rotation based on movement direction
+            const rotation = Math.sin(butterfly.orbitAngle) * 0.2;
+
+            drawButterfly(butterfly.x, butterfly.y, butterfly.wingAngle, rotation);
+
+            requestAnimationFrame(animateButterfly);
+        }
+
+        animateButterfly();
     </script>
 </body>
 </html>
