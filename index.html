@@ -93,6 +93,36 @@
             position: relative;
         }
 
+        /* Hero: left text + right photo circle */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin-bottom: 24px;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hero-photo-wrap {
+            flex-shrink: 0;
+        }
+
+        .hero-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--light-cream) 0%, #f5ebe0 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 4px solid rgba(139, 0, 0, 0.15);
+            box-shadow: 0 12px 40px rgba(139, 0, 0, 0.12);
+        }
+
         /* Header / Greeting */
         .greeting {
             font-size: 15px;
@@ -289,6 +319,18 @@
         }
 
         /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-photo {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
         @media (max-width: 640px) {
             header {
                 flex-direction: column;
@@ -302,6 +344,15 @@
 
             .container {
                 padding: 40px 24px 60px;
+            }
+
+            .hero {
+                gap: 32px;
+            }
+
+            .hero-photo {
+                width: 140px;
+                height: 140px;
             }
 
             h1 {
@@ -324,23 +375,33 @@
     <canvas id="butterfly-canvas"></canvas>
 
     <header>
-        <a href="/" class="logo">Vrushtee</a>
+        <a href="index.html" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="/wonder">Wonder</a>
-            <a href="/work">Work</a>
-            <a href="/imagine">Imagine</a>
+            <a href="wonder.html">Wonder</a>
+            <a href="work.html">Work</a>
+            <a href="imagine.html">Imagine</a>
         </nav>
     </header>
 
     <div class="container">
-        <div class="greeting">Welcome</div>
-
-        <h1>I am Vrushtee.</h1>
-
-        <p class="location">Mumbai, India</p>
+        <section class="hero">
+            <div class="hero-text">
+                <div class="greeting">Welcome</div>
+                <h1>I am Vrushtee.</h1>
+                <p class="location">Mumbai, India</p>
+            </div>
+            <div class="hero-photo-wrap">
+                <div class="hero-photo" style="background-image: url('assets/photo.jpg');" role="img" aria-label="Photo of Vrushtee"></div>
+            </div>
+        </section>
 
         <div class="accent-line"></div>
 
+        
+        <p class="bio">
+            Creating is about making asymmetric pieces spring into action. 
+            Things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
+        </p>
         <p class="bio">
             My life recently has been a lot of <strong>robotics</strong>. I love to learn and to make robots learn.
         </p>
@@ -353,26 +414,23 @@
             Striving to optimize life. Striving to create, to bring ideas to real life.
         </p>
 
-        <p class="bio">
-            Creating is about making asymmetric pieces spring into action—things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
-        </p>
 
         <nav class="sections-nav">
             <ul>
                 <li>
-                    <a href="/wonder">
+                    <a href="wonder.html">
                         <h3>Wonder</h3>
-                        <p>Curiosities</p>
+                        <p>Blogs(ME)</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/work">
+                    <a href="work.html">
                         <h3>Work</h3>
                         <p>Projects</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/imagine">
+                    <a href="imagine.html">
                         <h3>Imagine</h3>
                         <p>Ideas</p>
                     </a>
@@ -523,7 +581,7 @@
             ctx.stroke();
         }
 
-        // Butterfly
+        // Butterfly: one butterfly hovering near sunflower, two wings that flap (hinge rotation)
         const butterfly = {
             x: sunflowerX(),
             y: sunflowerY() - 60,
@@ -532,19 +590,33 @@
             orbitAngle: 0,
             orbitRadius: 50,
             hovering: true,
-            hoverTime: 0
+            hoverTime: 0,
+            flyingToTarget: false,
+            targetX: 0,
+            targetY: 0,
+            navigateTo: null
         };
+
+        function flyButterflyToThenNavigate(targetX, targetY, url) {
+            butterfly.flyingToTarget = true;
+            butterfly.targetX = targetX;
+            butterfly.targetY = targetY;
+            butterfly.navigateTo = url;
+        }
 
         function drawButterfly(x, y, wingAngle, rotation) {
             ctx.save();
             ctx.translate(x, y);
             ctx.rotate(rotation);
 
-            const wingFlap = Math.sin(wingAngle) * 0.4;
+            // Normal flapping: wings rotate at hinge (simple sine)
+            const flap = Math.sin(wingAngle) * 0.68;
 
             // Left wing
             ctx.save();
-            ctx.scale(1, 1 + wingFlap);
+            ctx.translate(-4, -3);
+            ctx.rotate(flap);
+            ctx.translate(4, 3);
             ctx.beginPath();
             ctx.ellipse(-12, -5, 18, 12, -0.3, 0, Math.PI * 2);
             ctx.fillStyle = '#C41E3A';
@@ -552,8 +624,6 @@
             ctx.strokeStyle = '#8B0000';
             ctx.lineWidth = 1;
             ctx.stroke();
-
-            // Wing pattern
             ctx.beginPath();
             ctx.arc(-14, -6, 5, 0, Math.PI * 2);
             ctx.fillStyle = '#FFB000';
@@ -566,7 +636,9 @@
 
             // Right wing
             ctx.save();
-            ctx.scale(1, 1 + wingFlap);
+            ctx.translate(4, -3);
+            ctx.rotate(-flap);
+            ctx.translate(-4, 3);
             ctx.beginPath();
             ctx.ellipse(12, -5, 18, 12, 0.3, 0, Math.PI * 2);
             ctx.fillStyle = '#C41E3A';
@@ -574,8 +646,6 @@
             ctx.strokeStyle = '#8B0000';
             ctx.lineWidth = 1;
             ctx.stroke();
-
-            // Wing pattern
             ctx.beginPath();
             ctx.arc(14, -6, 5, 0, Math.PI * 2);
             ctx.fillStyle = '#FFB000';
@@ -603,8 +673,6 @@
             ctx.moveTo(2, -10);
             ctx.quadraticCurveTo(6, -18, 8, -20);
             ctx.stroke();
-
-            // Antennae tips
             ctx.beginPath();
             ctx.arc(-8, -20, 2, 0, Math.PI * 2);
             ctx.arc(8, -20, 2, 0, Math.PI * 2);
@@ -619,36 +687,72 @@
 
             const sfX = sunflowerX();
             const sfY = sunflowerY();
-
             drawSunflower(sfX, sfY);
 
-            // Update butterfly
-            butterfly.wingAngle += 0.15;
-            butterfly.hoverTime += 0.02;
+            butterfly.wingAngle += 0.14;
 
-            if (butterfly.hovering) {
-                // Hover near the sunflower
-                butterfly.orbitAngle += 0.008;
+            if (butterfly.flyingToTarget) {
+                const dx = butterfly.targetX - butterfly.x;
+                const dy = butterfly.targetY - butterfly.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 18) {
+                    window.location.href = butterfly.navigateTo;
+                    return;
+                }
+
+                const speed = Math.min(14, Math.max(6, dist * 0.12));
+                butterfly.x += (dx / dist) * speed;
+                butterfly.y += (dy / dist) * speed;
+
+                butterfly.orbitAngle = Math.atan2(dy, dx);
+            } else {
+                butterfly.hoverTime += 0.015;
+                butterfly.orbitAngle += 0.005;
                 const hoverX = sfX + Math.cos(butterfly.orbitAngle) * butterfly.orbitRadius;
                 const hoverY = sfY - 40 + Math.sin(butterfly.orbitAngle * 2) * 20;
 
-                butterfly.x += (hoverX - butterfly.x) * 0.03;
-                butterfly.y += (hoverY - butterfly.y) * 0.03;
+                butterfly.x += (hoverX - butterfly.x) * 0.022;
+                butterfly.y += (hoverY - butterfly.y) * 0.022;
 
-                // Gentle floating
-                butterfly.x += Math.sin(butterfly.hoverTime * 1.5) * 0.3;
-                butterfly.y += Math.cos(butterfly.hoverTime * 1.2) * 0.2;
+                butterfly.x += Math.sin(butterfly.hoverTime * 1.5) * 0.22;
+                butterfly.y += Math.cos(butterfly.hoverTime * 1.2) * 0.15;
             }
 
-            // Calculate rotation based on movement direction
-            const rotation = Math.sin(butterfly.orbitAngle) * 0.2;
-
+            const rotation = butterfly.flyingToTarget
+                ? Math.atan2(butterfly.targetY - butterfly.y, butterfly.targetX - butterfly.x)
+                : Math.sin(butterfly.orbitAngle) * 0.2;
             drawButterfly(butterfly.x, butterfly.y, butterfly.wingAngle, rotation);
 
             requestAnimationFrame(animateButterfly);
         }
 
         animateButterfly();
+
+        // When coming back (e.g. back button or bfcache), restart butterfly so it doesn't disappear
+        window.addEventListener('pageshow', function(e) {
+            if (e.persisted) {
+                butterfly.flyingToTarget = false;
+                butterfly.navigateTo = null;
+                butterfly.hovering = true;
+                butterfly.x = sunflowerX() + 20;
+                butterfly.y = sunflowerY() - 50;
+                butterfly.orbitAngle = 0;
+                resizeButterfly();
+                animateButterfly();
+            }
+        });
+
+        // Click Wonder / Work / Imagine: butterfly flies to link, then page opens
+        document.querySelectorAll('a[href="wonder.html"], a[href="work.html"], a[href="imagine.html"]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const rect = this.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2;
+                const targetY = rect.top + rect.height / 2;
+                flyButterflyToThenNavigate(targetX, targetY, this.getAttribute('href'));
+            });
+        });
     </script>
 </body>
 </html>

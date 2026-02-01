@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wonder — Vrushtee</title>
+    <title>My First SO100 Repo — Wonder — Vrushtee</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -73,7 +73,6 @@
             50% { transform: translate(20px, 20px) rotate(5deg); }
         }
 
-        /* Header Navigation */
         header {
             padding: 32px;
             display: flex;
@@ -133,68 +132,18 @@
             position: relative;
         }
 
-        .page-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 64px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--deep-red) 0%, var(--medium-red) 50%, var(--warm-yellow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+        .back-link {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--medium-red);
+            text-decoration: none;
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
+            transition: color 0.2s ease;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .accent-line {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--deep-red), var(--warm-yellow));
-            margin-bottom: 48px;
-            opacity: 0;
-            animation: expandWidth 1.5s ease 0.4s forwards;
-        }
-
-        @keyframes expandWidth {
-            from {
-                width: 0;
-                opacity: 0;
-            }
-            to {
-                width: 80px;
-                opacity: 1;
-            }
-        }
-
-        .content {
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
-        }
-
-        .content p {
-            font-size: 18px;
-            line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .content strong {
+        .back-link:hover {
             color: var(--deep-red);
-            font-weight: 500;
-        }
-
-        .article {
-            margin-top: 8px;
         }
 
         .article-title {
@@ -245,47 +194,6 @@
             margin-bottom: 20px;
         }
 
-        .blog-list {
-            list-style: none;
-        }
-
-        .blog-entry {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            padding: 24px 0;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.12);
-            transition: border-color 0.2s ease;
-        }
-
-        .blog-entry:hover {
-            border-bottom-color: var(--medium-red);
-        }
-
-        .blog-entry:last-child {
-            border-bottom: none;
-        }
-
-        .blog-entry-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-            transition: color 0.2s ease;
-        }
-
-        .blog-entry:hover .blog-entry-title {
-            color: var(--deep-red);
-        }
-
-        .blog-entry-meta {
-            font-size: 14px;
-            color: var(--medium-red);
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
         @media (max-width: 640px) {
             header {
                 flex-direction: column;
@@ -301,8 +209,8 @@
                 padding: 32px 24px 60px;
             }
 
-            .page-title {
-                font-size: 48px;
+            .article-title {
+                font-size: 28px;
             }
         }
     </style>
@@ -320,16 +228,50 @@
     </header>
 
     <div class="container">
-        <h1 class="page-title">Wonder</h1>
+        <a href="wonder.html" class="back-link">← Wonder</a>
 
-        <div class="accent-line"></div>
+        <article class="article">
+            <h1 class="article-title">My First SO100 Repo</h1>
+            <p class="article-meta">sim2real, MuJoCo &amp; SRA Eklavya</p>
 
-        <nav class="blog-list content">
-            <a href="wonder-so100.html" class="blog-entry">
-                <h2 class="blog-entry-title">My First SO100 Repo</h2>
-                <p class="blog-entry-meta">sim2real, MuJoCo &amp; SRA Eklavya</p>
-            </a>
-        </nav>
+            <p>
+                This was one of the first projects I took up. The adrenaline of working on the freshness of a repository codebase alongside the joy of being new to even git, GitHub. We often take big leaps, huge steps, or just a decision to work on something today that makes us learn plenty—and much like this did to me.
+            </p>
+
+            <p>
+                As I remember the sim2real PPO on SO100 I go to the very many times that we calibrated the camera to match or figure out the dynamics of a sim-to-real system just before we got a hang of it.
+            </p>
+
+            <p>
+                How did we start about? It was a mentorship program, SRA at Eklavya. (The best thing.) We had a printed SO100 arm and because the open-source ecosystem is so damn good we had everything to make it work. We just had to put things in place. We read, we understood, learnt ACT, ALOHA algorithms that made sense. Tried our hands on MuJoCo for the first time.
+            </p>
+
+            <p>
+                This is what we did basically: <a href="https://github.com/vruga/dume" target="_blank" rel="noopener">repo link</a>. We loaded an XML model on MuJoCo, tried out forward kinematics and inverse kinematics, went on with integrating the boundaries of the workspace. This was fun—two weeks. This was my first time dealing with actual robotics, trying out something even on the simulation. This was July 2025 and since I have loved to be here.
+            </p>
+
+            <p>
+                The next part was hardware. And it is not as good as we want it to be. We figured out blinking motors to a heated-up motor driver—not because we did not have things available but because we learn a lot even while putting things together.
+            </p>
+
+            <p>
+                The first thing that comes to my mind while learning today is implementation. Available things, available resources took a considerable time to be put together because we were learning and the trajectory was beautiful.
+            </p>
+
+            <p class="article-section">The LeRobot sim2real</p>
+
+            <p>
+                Here another set of so much. Debugging hardware is the worst thing to do but the dopamine it triggers is pure surreal. When we transfer sim2real it indicates that the training has been on complete software. We do not make the robot do the task and record it. Instead we make a simulator which has an overlay of your greenscreen in its feed. The robot is calibrated through the maximum and minimal angles.
+            </p>
+
+            <p>
+                The calibration here for me consisted of a greenscreen image of the background on which the robot was then pasted, and then synthetic data was generated in a reality physics simulator.
+            </p>
+
+            <p>
+                We had a working sim2real pipeline where the cube spawned in the given workspace, the cube was picked up by the robot. The robot succeeded in simulation as well as in real life. True fun.
+            </p>
+        </article>
     </div>
 
     <script>

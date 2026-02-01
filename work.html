@@ -145,15 +145,6 @@
             animation: fadeInUp 1s ease forwards;
         }
 
-        .page-subtitle {
-            font-size: 18px;
-            color: var(--medium-red);
-            font-weight: 300;
-            margin-bottom: 64px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -201,38 +192,53 @@
             font-weight: 500;
         }
 
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
         .project-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-left: 4px solid var(--deep-red);
-            padding: 24px;
-            margin-bottom: 24px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.12);
+            transition: border-color 0.2s ease;
         }
 
         .project-card:hover {
-            transform: translateX(8px);
-            box-shadow: -4px 4px 20px rgba(139, 0, 0, 0.1);
+            border-bottom-color: var(--medium-red);
+        }
+
+        .project-card:last-child {
+            border-bottom: none;
         }
 
         .project-card h3 {
             font-family: 'Crimson Pro', serif;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
-            color: var(--deep-red);
+            color: var(--text-dark);
             margin-bottom: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .project-card:hover h3 {
+            color: var(--deep-red);
         }
 
         .project-card .tech {
             font-size: 13px;
             color: var(--medium-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
         }
 
         .project-card p {
-            font-size: 16px;
-            line-height: 1.7;
+            font-size: 17px;
+            line-height: 1.75;
             margin-bottom: 0;
         }
 
@@ -261,42 +267,41 @@
     <canvas id="aurora"></canvas>
 
     <header>
-        <a href="/" class="logo">Vrushtee</a>
+        <a href="index.html" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="/wonder">Wonder</a>
-            <a href="/work" class="active">Work</a>
-            <a href="/imagine">Imagine</a>
+            <a href="wonder.html">Wonder</a>
+            <a href="work.html" class="active">Work</a>
+            <a href="imagine.html">Imagine</a>
         </nav>
     </header>
 
     <div class="container">
         <h1 class="page-title">Work</h1>
-        <p class="page-subtitle">Projects and things I've built</p>
 
         <div class="accent-line"></div>
 
-        <div class="content">
-            <div class="project-card">
-                <h3>SO100 Robotic Arm - Cube Picking</h3>
-                <div class="tech">Reinforcement Learning / Robotics / PPO</div>
+        <div class="content project-list">
+            <a href="wonder-so100.html" class="project-card">
+                <h3>SO100 — Cube Picking &amp; Sim2Real</h3>
+                <p class="tech">PPO / MuJoCo / LeRobot / SRA Eklavya</p>
                 <p>
-                    Implemented PPO algorithm to train a 6-DOF robotic arm to pick up cubes. The robot learns through a simple reward function in simulation, then successfully transfers to real hardware through our sim-to-real pipeline.
+                    PPO on a 6-DOF SO100 arm: train in simulation, transfer to real hardware. Greenscreen calibration, synthetic data, and a working sim-to-real pipeline. More in <strong>Wonder</strong>.
                 </p>
-            </div>
+            </a>
 
             <div class="project-card">
-                <h3>FPO Algorithm Implementation</h3>
-                <div class="tech">Machine Learning / Algorithm Development / Research</div>
+                <h3>FPO Algorithm</h3>
+                <p class="tech">RL / Algorithm Development</p>
                 <p>
-                    After the success of PPO, I developed and implemented an FPO algorithm for the same cube-picking task. This project deepened my understanding of RL algorithm variations and optimization techniques.
+                    Implemented FPO for the same cube-picking task after PPO. Explored RL algorithm variations and optimization.
                 </p>
             </div>
 
             <div class="project-card">
                 <h3>Sim-to-Real Pipeline</h3>
-                <div class="tech">Sim2Real / Pipeline Development / Robotics</div>
+                <p class="tech">Pipeline / Robotics</p>
                 <p>
-                    Built a robust pipeline that allows robots to train entirely in simulation and then perform successfully on real hardware. The seamless transition from virtual to physical environments.
+                    Pipeline for training entirely in simulation and deploying on real hardware—calibration, synthetic data, and seamless transfer.
                 </p>
             </div>
         </div>
