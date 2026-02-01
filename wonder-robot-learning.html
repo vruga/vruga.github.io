@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work — Vrushtee</title>
+    <title>Robot learning — Wonder — Vrushtee</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -149,113 +149,95 @@
             position: relative;
         }
 
-        .page-title {
+        .back-link {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--medium-red);
+            text-decoration: none;
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--deep-red);
+        }
+
+        .article-title {
             font-family: 'Crimson Pro', serif;
-            font-size: 64px;
+            font-size: 36px;
             font-weight: 600;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--deep-red) 0%, var(--medium-red) 50%, var(--warm-yellow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            line-height: 1.2;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .article-meta {
+            font-size: 14px;
+            color: var(--medium-red);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
         }
 
-        .accent-line {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--deep-red), var(--warm-yellow));
-            margin-bottom: 48px;
-            opacity: 0;
-            animation: expandWidth 1.5s ease 0.4s forwards;
-        }
-
-        @keyframes expandWidth {
-            from {
-                width: 0;
-                opacity: 0;
-            }
-            to {
-                width: 80px;
-                opacity: 1;
-            }
-        }
-
-        .content {
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
-        }
-
-        .content p {
+        .article p {
             font-size: 18px;
-            line-height: 1.8;
+            line-height: 1.85;
             margin-bottom: 24px;
         }
 
-        .content strong {
-            color: var(--deep-red);
-            font-weight: 500;
-        }
-
-        .work-section {
-            margin-bottom: 64px;
-        }
-
-        .work-section:last-child {
+        .article p:last-child {
             margin-bottom: 0;
         }
 
-        .work-section h2 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 32px;
-            font-weight: 600;
-            color: var(--deep-red);
-            margin-bottom: 20px;
-        }
-
-        .work-photo {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1;
-            object-fit: cover;
-            display: block;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            box-shadow: 0 8px 24px rgba(139, 0, 0, 0.1);
-        }
-
-        .work-section p {
-            font-size: 17px;
-            line-height: 1.75;
-            margin-bottom: 16px;
-        }
-
-        .work-section p:last-child {
-            margin-bottom: 0;
-        }
-
-        .work-section a {
+        .article a {
             color: var(--deep-red);
             text-decoration: none;
             border-bottom: 1px solid rgba(139, 0, 0, 0.3);
             transition: border-color 0.2s ease, color 0.2s ease;
         }
 
-        .work-section a:hover {
+        .article a:hover {
             border-bottom-color: var(--deep-red);
             color: var(--medium-red);
+        }
+
+        .article-section {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--deep-red);
+            margin-top: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hover-image-wrapper {
+            position: relative;
+            display: inline;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--medium-red);
+        }
+
+        .hover-image-wrapper .hover-image {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .hover-image-wrapper:hover .hover-image {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
         @media (max-width: 640px) {
@@ -273,8 +255,12 @@
                 padding: 32px 24px 60px;
             }
 
-            .page-title {
-                font-size: 48px;
+            .article-title {
+                font-size: 28px;
+            }
+
+            .hover-image-wrapper .hover-image {
+                width: 150px;
             }
         }
     </style>
@@ -285,8 +271,8 @@
     <header>
         <a href="index.html" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="wonder.html">Wonder</a>
-            <a href="work.html" class="active">Work</a>
+            <a href="wonder.html" class="active">Wonder</a>
+            <a href="work.html">Work</a>
             <a href="imagine.html">Imagine</a>
         </nav>
         <div class="header-social">
@@ -296,38 +282,70 @@
     </header>
 
     <div class="container">
-        <h1 class="page-title">Work</h1>
+        <a href="wonder.html" class="back-link">← Wonder</a>
 
-        <div class="accent-line"></div>
+        <article class="article">
+            <h1 class="article-title">Robot learning</h1>
+            <p class="article-meta">ACT / LeRobot / SO100</p>
 
-        <div class="content">
-            <section class="work-section">
-                <h2>SO100</h2>
-                <img src="assets/so100.png" alt="SO100 robotic arm" class="work-photo">
-                <p>
-                    PPO + FPO implementation — <a href="https://github.com/vruga/lerobot-sim2real" target="_blank" rel="noopener">repo</a>
-                </p>
-                <p>
-                    More in <a href="wonder-so100.html">Wonder</a>.
-                </p>
-            </section>
+            <p>
+                Robot learning in its first form is not about scaling a model. It's rather about if the robot really learns to retry when it fails. May these be the emergent representations or the robustness of the model, this is the best part of working with robots.
+            </p>
 
-            <section class="work-section">
-                <h2>SIH PS 25056</h2>
-                <img src="assets/sih.jpg" alt="SIH PS 25056 — 24-Karat Magic" class="work-photo">
-                <p>
-                    <a href="https://blog.sravjti.in/2025/12/16/24-karat-magic.html" target="_blank" rel="noopener">24-Karat Magic</a> — Smart India Hackathon, gold purity testing with Linear Sweep Voltammetry (SRA-VJTI).
-                </p>
-            </section>
+            <p>
+                We used supervised imitation learning to train a <span class="hover-image-wrapper">3D-printed<img src="assets/3d.jpg" alt="3D printed parts" class="hover-image"></span> <span class="hover-image-wrapper">SO100<img src="assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></span> arm to pick up a wheel and place it in a box, entirely with LeRobot, Hugging Face datasets, and 3D-printed hardware.
+            </p>
 
-            <section class="work-section">
-                <h2>Taught — Embedded Line Following Workshop</h2>
-                <img src="assets/walle.png" alt="WALL-E line following workshop" class="work-photo">
-                <p>
-                    Taught an embedded line following workshop.
-                </p>
-            </section>
-        </div>
+            <p class="article-section">The Setting</p>
+
+            <p class="article-section">Calibrating the Arm</p>
+
+            <p>
+                The SO100 arm isn't an industrial manipulator. It's a 3D-printed PLA design, powered by STS3215 servos, and controlled via a Waveshare motor driver.
+            </p>
+
+            <p>
+                Both the leader and follower setups were calibrated using LeRobot's standard teleop calibration routine: move follower arm to middle of its range of motion; sweep all joints to their min and max (except wrist roll); repeat for the leader arm. LeRobot saves these calibration points into a Hugging Face cache path so every future session starts from a known geometry.
+            </p>
+
+            <p>
+                This calibration step anchors the dataset. Without it, no amount of training can save you.
+            </p>
+
+            <p class="article-section">Collecting Data: boring</p>
+
+            <p>
+                For data, the setup was minimal, with a Lenovo webcam positioned in front of the arm, framing the entire workspace: the arm, the wheel, the cardboard box, and enough of the table to give spatial context. Plain white background, normal room lighting. RGB only, plus proprioception data from LeRobot (joint angles, torques, etc.).
+            </p>
+
+            <p>
+                Each episode lasted around one minute, performing the full “pick-and-place then home” sequence. Around 50 episodes were recorded, and consistency mattered: the wheel, box, and arm were all marked with markers to preserve relative alignment.
+            </p>
+
+            <p>
+                The dataset was then pushed directly to Hugging Face using LeRobot's automatic data pipeline, with no extra scripts or manual cleanup.
+            </p>
+
+            <p class="article-section">Training ACT: Learning to Imitate</p>
+
+            <p>
+                With the dataset live, the ACT model was trained locally on an RTX 4090. No pretraining. Just data, patience, and GPU hours.
+            </p>
+
+            <p class="article-section">Deployment and the not so subtle Signs of Learning</p>
+
+            <p>
+                Deployment was straightforward. The model was cloned locally, run via LeRobot's evaluation script, and deployed through the Feetech SDK at 30 Hz inference, sending servo commands to the follower arm in real time.
+            </p>
+
+            <p>
+                At first, movements were hesitant, very jittery. Then, the signs of learning appeared: retries when it failed to grasp, with slight repositioning and reattempts; temporal awareness, with a smooth return to home after completion; transfer through context, as reintroducing the wheel after a rollout triggered the same learned behavior without retraining.
+            </p>
+
+            <p>
+                Imitation learning isn't just copying. The model internalized cause and effect through supervised data alone.
+            </p>
+        </article>
     </div>
 
     <script>

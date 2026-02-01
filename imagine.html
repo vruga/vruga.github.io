@@ -125,6 +125,23 @@
             width: 100%;
         }
 
+        .header-social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-social a {
+            font-size: 14px;
+            color: var(--medium-red);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .header-social a:hover {
+            color: var(--deep-red);
+        }
+
         .container {
             max-width: 720px;
             margin: 0 auto;
@@ -232,6 +249,10 @@
             <a href="work.html">Work</a>
             <a href="imagine.html" class="active">Imagine</a>
         </nav>
+        <div class="header-social">
+            <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://x.com/vruga_" target="_blank" rel="noopener">X</a>
+        </div>
     </header>
 
     <div class="container">

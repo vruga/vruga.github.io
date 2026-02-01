@@ -126,6 +126,23 @@
             width: 100%;
         }
 
+        .header-social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-social a {
+            font-size: 14px;
+            color: var(--medium-red);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .header-social a:hover {
+            color: var(--deep-red);
+        }
+
         .container {
             max-width: 720px;
             margin: 0 auto;
@@ -317,6 +334,10 @@
             <a href="work.html">Work</a>
             <a href="imagine.html">Imagine</a>
         </nav>
+        <div class="header-social">
+            <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://x.com/vruga_" target="_blank" rel="noopener">X</a>
+        </div>
     </header>
 
     <div class="container">
@@ -327,7 +348,9 @@
         <nav class="blog-list content">
             <a href="wonder-so100.html" class="blog-entry">
                 <h2 class="blog-entry-title">My First SO100 Repo</h2>
-                <p class="blog-entry-meta">sim2real, MuJoCo &amp; SRA Eklavya</p>
+            </a>
+            <a href="wonder-robot-learning.html" class="blog-entry">
+                <h2 class="blog-entry-title">Robot learning</h2>
             </a>
         </nav>
     </div>

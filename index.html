@@ -165,10 +165,19 @@
         .location {
             font-size: 16px;
             color: var(--medium-red);
-            margin-bottom: 56px;
+            margin-bottom: 8px;
             font-weight: 300;
             opacity: 0;
             animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .intro {
+            font-size: 16px;
+            color: var(--medium-red);
+            margin-bottom: 56px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
 
         /* Bio content */
@@ -318,6 +327,53 @@
             width: 100%;
         }
 
+        .header-social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-social a {
+            font-size: 14px;
+            color: var(--medium-red);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .header-social a:hover {
+            color: var(--deep-red);
+        }
+
+        /* Hover image effect */
+        .hover-image-wrapper {
+            position: relative;
+            display: inline;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--medium-red);
+        }
+
+        .hover-image-wrapper .hover-image {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .hover-image-wrapper:hover .hover-image {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero {
@@ -367,6 +423,10 @@
                 flex-direction: column;
                 gap: 28px;
             }
+
+            .hover-image-wrapper .hover-image {
+                width: 150px;
+            }
         }
     </style>
 </head>
@@ -381,6 +441,10 @@
             <a href="work.html">Work</a>
             <a href="imagine.html">Imagine</a>
         </nav>
+        <div class="header-social">
+            <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://x.com/vruga_" target="_blank" rel="noopener">X</a>
+        </div>
     </header>
 
     <div class="container">
@@ -389,6 +453,7 @@
                 <div class="greeting">Welcome</div>
                 <h1>I am Vrushtee.</h1>
                 <p class="location">Mumbai, India</p>
+                <p class="intro">I am 19. An undergrad student at VJTI.</p>
             </div>
             <div class="hero-photo-wrap">
                 <div class="hero-photo" style="background-image: url('assets/photo.jpg');" role="img" aria-label="Photo of Vrushtee"></div>
@@ -403,11 +468,11 @@
             Things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
         </p>
         <p class="bio">
-            My life recently has been a lot of <strong>robotics</strong>. I love to learn and to make robots learn.
+            My life recently has been a lot of <strong class="hover-image-wrapper">robotics<img src="assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></strong>. I love to learn and to make robots learn.
         </p>
 
         <p class="bio">
-            3D printed pieces put together with servos, cameras, and a lot of experimental models that rarely work.
+            <span class="hover-image-wrapper">3D printed<img src="assets/3d.jpg" alt="3D printed parts" class="hover-image"></span> pieces put together with servos, cameras, and a lot of experimental models that rarely work.
         </p>
 
         <p class="bio">
