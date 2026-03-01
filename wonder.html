@@ -270,25 +270,23 @@
             display: block;
             text-decoration: none;
             color: inherit;
-            padding: 24px 0;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.12);
-            transition: border-color 0.2s ease;
+            padding: 28px 24px;
+            margin: 0 -24px 0 -24px;
+            border-radius: 8px;
+            border-bottom: none;
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
         .blog-entry:hover {
-            border-bottom-color: var(--medium-red);
-        }
-
-        .blog-entry:last-child {
-            border-bottom: none;
+            background: rgba(139, 0, 0, 0.04);
         }
 
         .blog-entry-title {
             font-family: 'Crimson Pro', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 6px;
+            line-height: 1.35;
             transition: color 0.2s ease;
         }
 
@@ -351,6 +349,9 @@
             </a>
             <a href="wonder-robot-learning.html" class="blog-entry">
                 <h2 class="blog-entry-title">Robot learning</h2>
+            </a>
+            <a href="wonder-robotics-three-things.html" class="blog-entry">
+                <h2 class="blog-entry-title">Robotics changes everyday but it is still the same three things</h2>
             </a>
         </nav>
     </div>

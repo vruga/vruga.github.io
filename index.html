@@ -646,14 +646,16 @@
             ctx.stroke();
         }
 
-        // Butterfly: one butterfly hovering near sunflower, two wings that flap (hinge rotation)
+        // Beautiful butterfly — bezier wings, gradients, veins, eyespot, particle trail
+        const particles = [];
+
         const butterfly = {
             x: sunflowerX(),
             y: sunflowerY() - 60,
             angle: 0,
             wingAngle: 0,
             orbitAngle: 0,
-            orbitRadius: 50,
+            orbitRadius: 52,
             hovering: true,
             hoverTime: 0,
             flyingToTarget: false,
@@ -669,80 +671,298 @@
             butterfly.navigateTo = url;
         }
 
+        function addFlightParticles(x, y) {
+            if (Math.random() < 0.55) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 20,
+                    y: y + (Math.random() - 0.5) * 20,
+                    vx: (Math.random() - 0.5) * 1.4,
+                    vy: (Math.random() - 0.5) * 1.4 - 0.25,
+                    life: 1,
+                    decay: 0.022 + Math.random() * 0.022,
+                    size: 1.2 + Math.random() * 2.5,
+                    gold: Math.random() > 0.38
+                });
+                if (particles.length > 35) particles.shift();
+            }
+        }
+
+        function drawParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= p.decay;
+                if (p.life <= 0) { particles.splice(i, 1); continue; }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fillStyle = p.gold
+                    ? `rgba(255, 176, 0, ${p.life * 0.75})`
+                    : `rgba(196, 30, 58, ${p.life * 0.6})`;
+                ctx.fill();
+            }
+        }
+
+        // Draws one side of the butterfly wings (right side).
+        // Called twice: once normally (right), once inside ctx.scale(-1,1) (left).
+        function drawWingSide(flapScale) {
+            // ── Upper forewing ──
+            ctx.save();
+            ctx.scale(flapScale, 1);
+
+            const ug = ctx.createLinearGradient(3, -8, 68, -40);
+            ug.addColorStop(0,    'rgba(100, 0,   0,   0.95)');
+            ug.addColorStop(0.18, 'rgba(172, 22,  42,  0.92)');
+            ug.addColorStop(0.48, 'rgba(208, 64,  0,   0.88)');
+            ug.addColorStop(0.80, 'rgba(242, 128, 0,   0.82)');
+            ug.addColorStop(1,    'rgba(255, 180, 0,   0.75)');
+
+            ctx.beginPath();
+            ctx.moveTo(3, -8);
+            ctx.bezierCurveTo(14, -35, 44, -58, 64, -42);
+            ctx.bezierCurveTo(74, -30, 72, -8,  60,  7);
+            ctx.bezierCurveTo(46,  22, 18,  21,  3,  8);
+            ctx.closePath();
+            ctx.fillStyle = ug;
+            ctx.fill();
+
+            // Dark outer border band
+            const ubg = ctx.createLinearGradient(3, -8, 68, -40);
+            ubg.addColorStop(0.50, 'rgba(0, 0, 0, 0)');
+            ubg.addColorStop(0.76, 'rgba(15, 0, 0, 0.28)');
+            ubg.addColorStop(1,    'rgba(5,  0, 0, 0.64)');
+            ctx.beginPath();
+            ctx.moveTo(3, -8);
+            ctx.bezierCurveTo(14, -35, 44, -58, 64, -42);
+            ctx.bezierCurveTo(74, -30, 72, -8,  60,  7);
+            ctx.bezierCurveTo(46,  22, 18,  21,  3,  8);
+            ctx.closePath();
+            ctx.fillStyle = ubg;
+            ctx.fill();
+
+            // Outline
+            ctx.strokeStyle = 'rgba(35, 0, 0, 0.65)';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+
+            // Wing veins
+            ctx.save();
+            ctx.strokeStyle = 'rgba(28, 0, 0, 0.30)';
+            ctx.lineWidth = 0.75;
+            [
+                [3, -8,  32, -48, 64, -42],
+                [4, -2,  32, -28, 70, -18],
+                [4,  2,  30, -10, 68,  -4],
+                [4,  6,  28,  10, 58,   8],
+                [4,  8,  24,  18, 44,  20],
+            ].forEach(([x0, y0, cx, cy, x1, y1]) => {
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.quadraticCurveTo(cx, cy, x1, y1);
+                ctx.stroke();
+            });
+            ctx.restore();
+
+            // Cream border dots
+            [[63,-42],[70,-28],[72,-12],[67,4],[59,10]].forEach(([dx, dy]) => {
+                ctx.beginPath();
+                ctx.arc(dx, dy, 2.3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 246, 210, 0.72)';
+                ctx.fill();
+            });
+
+            ctx.restore(); // upper forewing
+
+            // ── Lower hindwing ──
+            ctx.save();
+            ctx.scale(flapScale * 0.92, 1);
+
+            const lg = ctx.createLinearGradient(3, 10, 56, 40);
+            lg.addColorStop(0,    'rgba(100, 0,   0,   0.95)');
+            lg.addColorStop(0.28, 'rgba(172, 22,  42,  0.90)');
+            lg.addColorStop(0.62, 'rgba(210, 70,  0,   0.84)');
+            lg.addColorStop(1,    'rgba(255, 176, 0,   0.74)');
+
+            ctx.beginPath();
+            ctx.moveTo(3, 10);
+            ctx.bezierCurveTo(20, 28, 48, 48, 54, 32);
+            ctx.bezierCurveTo(58, 20, 52,  5, 40,  8);
+            ctx.bezierCurveTo(27, 10, 11, 10,  3, 10);
+            ctx.closePath();
+            ctx.fillStyle = lg;
+            ctx.fill();
+
+            const lbg = ctx.createLinearGradient(3, 10, 56, 40);
+            lbg.addColorStop(0.48, 'rgba(0, 0, 0, 0)');
+            lbg.addColorStop(0.74, 'rgba(15, 0, 0, 0.24)');
+            lbg.addColorStop(1,    'rgba(5,  0, 0, 0.55)');
+            ctx.beginPath();
+            ctx.moveTo(3, 10);
+            ctx.bezierCurveTo(20, 28, 48, 48, 54, 32);
+            ctx.bezierCurveTo(58, 20, 52,  5, 40,  8);
+            ctx.bezierCurveTo(27, 10, 11, 10,  3, 10);
+            ctx.closePath();
+            ctx.fillStyle = lbg;
+            ctx.fill();
+
+            ctx.strokeStyle = 'rgba(35, 0, 0, 0.65)';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+
+            // Hindwing veins
+            ctx.save();
+            ctx.strokeStyle = 'rgba(28, 0, 0, 0.28)';
+            ctx.lineWidth = 0.75;
+            [
+                [4, 10, 28, 42, 54, 32],
+                [4, 11, 26, 26, 52, 20],
+                [4, 12, 22, 16, 40, 10],
+            ].forEach(([x0, y0, cx, cy, x1, y1]) => {
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.quadraticCurveTo(cx, cy, x1, y1);
+                ctx.stroke();
+            });
+            ctx.restore();
+
+            // Eyespot
+            const espX = 42, espY = 30;
+            ctx.beginPath();
+            ctx.arc(espX, espY, 9, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(12, 0, 0, 0.80)';
+            ctx.fill();
+
+            const espG = ctx.createRadialGradient(espX, espY, 0, espX, espY, 6.5);
+            espG.addColorStop(0,   'rgba(195, 125, 255, 0.88)');
+            espG.addColorStop(0.5, 'rgba(112, 58,  215, 0.76)');
+            espG.addColorStop(1,   'rgba(55,  5,   160, 0.56)');
+            ctx.beginPath();
+            ctx.arc(espX, espY, 6.5, 0, Math.PI * 2);
+            ctx.fillStyle = espG;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(espX, espY, 2.8, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.92)';
+            ctx.fill();
+
+            // Catchlight
+            ctx.beginPath();
+            ctx.arc(espX - 0.9, espY - 0.9, 1.0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fill();
+
+            // Hindwing border dots
+            [[52, 32],[55, 20],[48, 44]].forEach(([dx, dy]) => {
+                ctx.beginPath();
+                ctx.arc(dx, dy, 2.0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 246, 210, 0.68)';
+                ctx.fill();
+            });
+
+            ctx.restore(); // lower hindwing
+        }
+
         function drawButterfly(x, y, wingAngle, rotation) {
             ctx.save();
             ctx.translate(x, y);
             ctx.rotate(rotation);
+            ctx.scale(0.78, 0.78);
 
-            // Normal flapping: wings rotate at hinge (simple sine)
-            const flap = Math.sin(wingAngle) * 0.68;
+            // Perspective-foreshortening flap: wings go from ~45% to 100% open
+            const flapScale = 0.45 + 0.55 * Math.abs(Math.cos(wingAngle * 0.58));
 
-            // Left wing
+            // Soft glow
+            ctx.shadowColor = 'rgba(196, 30, 58, 0.32)';
+            ctx.shadowBlur = 26;
+
+            // Right wings
+            drawWingSide(flapScale);
+
+            // Left wings (mirror)
             ctx.save();
-            ctx.translate(-4, -3);
-            ctx.rotate(flap);
-            ctx.translate(4, 3);
-            ctx.beginPath();
-            ctx.ellipse(-12, -5, 18, 12, -0.3, 0, Math.PI * 2);
-            ctx.fillStyle = '#C41E3A';
-            ctx.fill();
-            ctx.strokeStyle = '#8B0000';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(-14, -6, 5, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFB000';
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(-8, -2, 3, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFB000';
-            ctx.fill();
+            ctx.scale(-1, 1);
+            drawWingSide(flapScale);
             ctx.restore();
 
-            // Right wing
-            ctx.save();
-            ctx.translate(4, -3);
-            ctx.rotate(-flap);
-            ctx.translate(-4, 3);
-            ctx.beginPath();
-            ctx.ellipse(12, -5, 18, 12, 0.3, 0, Math.PI * 2);
-            ctx.fillStyle = '#C41E3A';
-            ctx.fill();
-            ctx.strokeStyle = '#8B0000';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(14, -6, 5, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFB000';
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(8, -2, 3, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFB000';
-            ctx.fill();
-            ctx.restore();
+            // Body (no glow)
+            ctx.shadowBlur = 0;
+            ctx.shadowColor = 'transparent';
 
-            // Body
+            const bodyG = ctx.createLinearGradient(0, -15, 0, 22);
+            bodyG.addColorStop(0,    '#4a0000');
+            bodyG.addColorStop(0.3,  '#790000');
+            bodyG.addColorStop(0.65, '#5a0000');
+            bodyG.addColorStop(1,    '#360000');
+
+            // Thorax
             ctx.beginPath();
-            ctx.ellipse(0, 0, 3, 12, 0, 0, Math.PI * 2);
-            ctx.fillStyle = '#8B0000';
+            ctx.ellipse(0, -4, 5, 8, 0, 0, Math.PI * 2);
+            ctx.fillStyle = bodyG;
             ctx.fill();
+            ctx.strokeStyle = 'rgba(15, 0, 0, 0.55)';
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+
+            // Abdomen
+            ctx.beginPath();
+            ctx.ellipse(0, 11, 3.5, 11, 0, 0, Math.PI * 2);
+            ctx.fillStyle = bodyG;
+            ctx.fill();
+            ctx.stroke();
+
+            // Abdomen segments
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.22)';
+            ctx.lineWidth = 0.55;
+            for (let i = 0; i < 5; i++) {
+                const sy = 3 + i * 4.2;
+                const hw = 3.5 * Math.sqrt(Math.max(0, 1 - ((sy - 11) / 11) ** 2));
+                ctx.beginPath();
+                ctx.moveTo(-hw, sy);
+                ctx.lineTo(hw, sy);
+                ctx.stroke();
+            }
+
+            // Head
+            ctx.beginPath();
+            ctx.arc(0, -14, 4.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#360000';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(15, 0, 0, 0.5)';
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+
+            // Eyes
+            ctx.fillStyle = '#FFD700';
+            [-2.8, 2.8].forEach(ex => {
+                ctx.beginPath();
+                ctx.arc(ex, -15, 1.2, 0, Math.PI * 2);
+                ctx.fill();
+            });
 
             // Antennae
-            ctx.strokeStyle = '#8B0000';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#360000';
+            ctx.lineWidth = 1.3;
             ctx.beginPath();
-            ctx.moveTo(-2, -10);
-            ctx.quadraticCurveTo(-6, -18, -8, -20);
+            ctx.moveTo(-2.5, -18);
+            ctx.quadraticCurveTo(-13, -33, -17, -44);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(2, -10);
-            ctx.quadraticCurveTo(6, -18, 8, -20);
+            ctx.moveTo(2.5, -18);
+            ctx.quadraticCurveTo(13, -33, 17, -44);
             ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(-8, -20, 2, 0, Math.PI * 2);
-            ctx.arc(8, -20, 2, 0, Math.PI * 2);
-            ctx.fillStyle = '#8B0000';
-            ctx.fill();
+
+            // Antennae club tips
+            [[-17, -44], [17, -44]].forEach(([ax, ay]) => {
+                const tipG = ctx.createRadialGradient(ax, ay, 0, ax, ay, 3.2);
+                tipG.addColorStop(0,   '#FFB000');
+                tipG.addColorStop(0.5, '#C41E3A');
+                tipG.addColorStop(1,   '#8B0000');
+                ctx.beginPath();
+                ctx.arc(ax, ay, 3.2, 0, Math.PI * 2);
+                ctx.fillStyle = tipG;
+                ctx.fill();
+            });
 
             ctx.restore();
         }
@@ -754,7 +974,9 @@
             const sfY = sunflowerY();
             drawSunflower(sfX, sfY);
 
-            butterfly.wingAngle += 0.14;
+            drawParticles();
+
+            butterfly.wingAngle += 0.13;
 
             if (butterfly.flyingToTarget) {
                 const dx = butterfly.targetX - butterfly.x;
@@ -769,26 +991,24 @@
                 const speed = Math.min(14, Math.max(6, dist * 0.12));
                 butterfly.x += (dx / dist) * speed;
                 butterfly.y += (dy / dist) * speed;
-
                 butterfly.orbitAngle = Math.atan2(dy, dx);
+                addFlightParticles(butterfly.x, butterfly.y);
             } else {
-                butterfly.hoverTime += 0.015;
-                butterfly.orbitAngle += 0.005;
-                const hoverX = sfX + Math.cos(butterfly.orbitAngle) * butterfly.orbitRadius;
-                const hoverY = sfY - 40 + Math.sin(butterfly.orbitAngle * 2) * 20;
+                butterfly.hoverTime += 0.014;
+                // Gentle straight drift — side-to-side and slight vertical bob
+                const hoverX = sfX + Math.sin(butterfly.hoverTime * 0.75) * 30;
+                const hoverY = sfY - 52 + Math.sin(butterfly.hoverTime * 0.4) * 12;
 
-                butterfly.x += (hoverX - butterfly.x) * 0.022;
-                butterfly.y += (hoverY - butterfly.y) * 0.022;
-
-                butterfly.x += Math.sin(butterfly.hoverTime * 1.5) * 0.22;
-                butterfly.y += Math.cos(butterfly.hoverTime * 1.2) * 0.15;
+                butterfly.x += (hoverX - butterfly.x) * 0.025;
+                butterfly.y += (hoverY - butterfly.y) * 0.025;
             }
 
+            // atan2(dx, -dy) makes the antennae (local -y) point toward the target
             const rotation = butterfly.flyingToTarget
-                ? Math.atan2(butterfly.targetY - butterfly.y, butterfly.targetX - butterfly.x)
-                : Math.sin(butterfly.orbitAngle) * 0.2;
-            drawButterfly(butterfly.x, butterfly.y, butterfly.wingAngle, rotation);
+                ? Math.atan2(butterfly.targetX - butterfly.x, -(butterfly.targetY - butterfly.y))
+                : Math.sin(butterfly.hoverTime * 0.4) * 0.1;
 
+            drawButterfly(butterfly.x, butterfly.y, butterfly.wingAngle, rotation);
             requestAnimationFrame(animateButterfly);
         }
 
