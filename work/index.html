@@ -214,6 +214,7 @@
             padding: 1px 6px;
             border-radius: 4px;
             border-bottom: none;
+            overflow-wrap: anywhere;
             box-decoration-break: clone;
             -webkit-box-decoration-break: clone;
             transition: background 0.2s ease;
@@ -283,13 +284,54 @@
 
         <div class="content">
             <section class="work-section">
-                <h2>SO100</h2>
-                <img src="/assets/work/so100.png" alt="SO100 robotic arm" class="work-photo">
+                <h2>YUMI</h2>
+                <video src="/assets/work/yumi.mp4" poster="/assets/work/yumi-poster.jpg" class="work-photo" autoplay loop muted playsinline></video>
                 <p>
-                    PPO + FPO implementation, <a href="https://github.com/vruga/lerobot-sim2real" target="_blank" rel="noopener">repo</a>
+                    ACT + CLIP, pick and place the green block. Trained on handheld UMI demonstrations, deployed on a YAM arm.
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>UMI at scale</h2>
+                <img src="/assets/work/umi.jpg" alt="A row of 3D-printed UMI grippers" class="work-photo">
+                <p>
+                    UMI policies on Piper.
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>RL on VLAs</h2>
+                <p>
+                    <a href="https://x.com/vruga_/status/2058725128184439248?s=20" target="_blank" rel="noopener">https://x.com/vruga_/status/2058725128184439248?s=20</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>YAMS, GELLO and diffusion policies</h2>
+                <img src="/assets/work/yams.jpg" alt="YAMS arms" class="work-photo">
+                <p>
+                    We got YAMS, and then we needed teleop, so we made GELLOs. Then we worked on diffusion policies on YAMS.
                 </p>
                 <p>
-                    More in <a href="/wonder/so100/">Wonder</a>.
+                    <a href="https://x.com/vruga_/status/2050256176332574806?s=20" target="_blank" rel="noopener">https://x.com/vruga_/status/2050256176332574806?s=20</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>ROS and micro-ROS workshop: MARIO</h2>
+                <p>
+                    We taught a ROS and micro-ROS workshop, MARIO.
+                </p>
+                <p>
+                    <a href="https://x.com/vruga_/status/2044099688236990836?s=20" target="_blank" rel="noopener">https://x.com/vruga_/status/2044099688236990836?s=20</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>SIH PS 25056</h2>
+                <img src="/assets/work/sih.jpg" alt="SIH PS 25056, 24 Karat Magic" class="work-photo">
+                <p>
+                    <a href="https://blog.sravjti.in/2025/12/16/24-karat-magic.html" target="_blank" rel="noopener">24 Karat Magic</a>, Smart India Hackathon, gold purity testing with Linear Sweep Voltammetry (SRA-VJTI).
                 </p>
             </section>
 
@@ -301,64 +343,24 @@
             </section>
 
             <section class="work-section">
-                <h2>YAMS and GELLO</h2>
-                <img src="/assets/work/yams.jpg" alt="YAMS arms" class="work-photo">
-                <p>
-                    We got YAMS, and then we needed teleop, so we made GELLOs.
-                    <a href="https://x.com/vruga_/status/2050256176332574806?s=20" target="_blank" rel="noopener">tweet</a>
-                </p>
-            </section>
-
-            <section class="work-section">
-                <h2>ROS and micro-ROS workshop: MARIO</h2>
-                <p>
-                    We taught a ROS and micro-ROS workshop, MARIO.
-                    <a href="https://x.com/vruga_/status/2044099688236990836?s=20" target="_blank" rel="noopener">tweet</a>
-                </p>
-            </section>
-
-            <section class="work-section">
-                <h2>YAMS diffusion policies</h2>
-                <p>
-                    Worked on diffusion policies on YAMS.
-                </p>
-            </section>
-
-            <section class="work-section">
-                <h2>RL on VLAs</h2>
-                <p>
-                    <a href="https://x.com/vruga_/status/2058725128184439248?s=20" target="_blank" rel="noopener">tweet</a>
-                </p>
-            </section>
-
-            <section class="work-section">
-                <h2>UMI policies on Piper</h2>
-                <img src="/assets/work/umi.jpg" alt="A row of 3D-printed UMI grippers" class="work-photo">
-            </section>
-
-            <section class="work-section">
-                <h2>YUMI</h2>
-                <video src="/assets/work/yumi.mp4" poster="/assets/work/yumi-poster.jpg" class="work-photo" autoplay loop muted playsinline></video>
-                <p>
-                    ACT + CLIP, pick and place the green block. Trained on handheld UMI demonstrations, deployed on a YAM arm.
-                </p>
-            </section>
-
-            <p class="work-label">Earlier</p>
-
-            <section class="work-section">
-                <h2>SIH PS 25056</h2>
-                <img src="/assets/work/sih.jpg" alt="SIH PS 25056, 24 Karat Magic" class="work-photo">
-                <p>
-                    <a href="https://blog.sravjti.in/2025/12/16/24-karat-magic.html" target="_blank" rel="noopener">24 Karat Magic</a>, Smart India Hackathon, gold purity testing with Linear Sweep Voltammetry (SRA-VJTI).
-                </p>
-            </section>
-
-            <section class="work-section">
                 <h2>Taught: Embedded Line Following Workshop</h2>
                 <img src="/assets/work/walle.png" alt="WALL-E line following workshop" class="work-photo">
                 <p>
                     Taught an embedded line following workshop.
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>SO100</h2>
+                <img src="/assets/work/so100.png" alt="SO100 robotic arm" class="work-photo">
+                <p>
+                    PPO + FPO implementation:
+                </p>
+                <p>
+                    <a href="https://github.com/vruga/lerobot-sim2real" target="_blank" rel="noopener">https://github.com/vruga/lerobot-sim2real</a>
+                </p>
+                <p>
+                    More in <a href="/wonder/so100/">Wonder</a>.
                 </p>
             </section>
         </div>
