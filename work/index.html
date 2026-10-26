@@ -7,12 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="/assets/sky.js?v=5"></script>
     <style>
         :root {
             --deep-red: #8B0000;
             --medium-red: #C41E3A;
             --warm-yellow: #FFB000;
             --light-cream: #FFF9F0;
+            --peach: #FFFFFF;
             --text-dark: #1a1a1a;
         }
 
@@ -24,53 +26,12 @@
 
         body {
             font-family: 'Work Sans', sans-serif;
-            background: linear-gradient(135deg, var(--light-cream) 0%, #FFFBF5 100%);
+            background: var(--peach);
             color: var(--text-dark);
             line-height: 1.7;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-        }
-
-        #aurora {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0.4;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, var(--warm-yellow) 0%, transparent 70%);
-            opacity: 0.08;
-            z-index: -1;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%;
-            left: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, var(--medium-red) 0%, transparent 70%);
-            opacity: 0.06;
-            z-index: -1;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 20px) rotate(5deg); }
         }
 
         header {
@@ -210,7 +171,7 @@
         }
 
         .work-section {
-            margin-bottom: 64px;
+            margin-bottom: 72px;
         }
 
         .work-section:last-child {
@@ -218,22 +179,22 @@
         }
 
         .work-section h2 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 32px;
+            font-size: 24px;
+            line-height: 1.3;
             font-weight: 600;
             color: var(--deep-red);
             margin-bottom: 20px;
+            padding: 2px 0 2px 16px;
+            border-left: 5px solid var(--medium-red);
         }
 
         .work-photo {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1;
-            object-fit: cover;
             display: block;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            box-shadow: 0 8px 24px rgba(139, 0, 0, 0.1);
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 460px;
+            margin: 0 0 20px;
         }
 
         .work-section p {
@@ -247,15 +208,32 @@
         }
 
         .work-section a {
-            color: var(--deep-red);
+            color: #4a1500;
             text-decoration: none;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
-            transition: border-color 0.2s ease, color 0.2s ease;
+            background: #FFE066;
+            padding: 1px 6px;
+            border-radius: 4px;
+            border-bottom: none;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            transition: background 0.2s ease;
         }
 
         .work-section a:hover {
-            border-bottom-color: var(--deep-red);
+            background: #FFD233;
+        }
+
+        .work-section video.work-photo {
+            max-height: 360px;
+            border-radius: 6px;
+        }
+
+        .work-label {
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             color: var(--medium-red);
+            margin: 8px 0 40px;
         }
 
         @media (max-width: 640px) {
@@ -277,17 +255,20 @@
                 font-size: 48px;
             }
         }
+
+
+
+
     </style>
 </head>
 <body>
-    <canvas id="aurora"></canvas>
 
     <header>
-        <a href="index.html" class="logo">Vrushtee</a>
+        <a href="/" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="wonder.html">Wonder</a>
-            <a href="work.html" class="active">Work</a>
-            <a href="imagine.html">Imagine</a>
+            <a href="/wonder/">Wonder</a>
+            <a href="/work/" class="active">Work</a>
+            <a href="/imagine/">Imagine</a>
         </nav>
         <div class="header-social">
             <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
@@ -303,18 +284,71 @@
         <div class="content">
             <section class="work-section">
                 <h2>SO100</h2>
-                <img src="assets/so100.png" alt="SO100 robotic arm" class="work-photo">
+                <img src="/assets/work/so100.png" alt="SO100 robotic arm" class="work-photo">
                 <p>
                     PPO + FPO implementation, <a href="https://github.com/vruga/lerobot-sim2real" target="_blank" rel="noopener">repo</a>
                 </p>
                 <p>
-                    More in <a href="wonder-so100.html">Wonder</a>.
+                    More in <a href="/wonder/so100/">Wonder</a>.
                 </p>
             </section>
 
             <section class="work-section">
+                <h2>Robot learning niche</h2>
+                <p>
+                    Teaching robots by showing them. More in <a href="/wonder/robot-learning/">Wonder</a>.
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>YAMS and GELLO</h2>
+                <img src="/assets/work/yams.jpg" alt="YAMS arms" class="work-photo">
+                <p>
+                    We got YAMS, and then we needed teleop, so we made GELLOs.
+                    <a href="https://x.com/vruga_/status/2050256176332574806?s=20" target="_blank" rel="noopener">tweet</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>ROS and micro-ROS workshop: MARIO</h2>
+                <p>
+                    We taught a ROS and micro-ROS workshop, MARIO.
+                    <a href="https://x.com/vruga_/status/2044099688236990836?s=20" target="_blank" rel="noopener">tweet</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>YAMS diffusion policies</h2>
+                <p>
+                    Worked on diffusion policies on YAMS.
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>RL on VLAs</h2>
+                <p>
+                    <a href="https://x.com/vruga_/status/2058725128184439248?s=20" target="_blank" rel="noopener">tweet</a>
+                </p>
+            </section>
+
+            <section class="work-section">
+                <h2>UMI policies on Piper</h2>
+                <img src="/assets/work/umi.jpg" alt="A row of 3D-printed UMI grippers" class="work-photo">
+            </section>
+
+            <section class="work-section">
+                <h2>YUMI</h2>
+                <video src="/assets/work/yumi.mp4" poster="/assets/work/yumi-poster.jpg" class="work-photo" autoplay loop muted playsinline></video>
+                <p>
+                    ACT + CLIP, pick and place the green block. Trained on handheld UMI demonstrations, deployed on a YAM arm.
+                </p>
+            </section>
+
+            <p class="work-label">Earlier</p>
+
+            <section class="work-section">
                 <h2>SIH PS 25056</h2>
-                <img src="assets/sih.jpg" alt="SIH PS 25056, 24 Karat Magic" class="work-photo">
+                <img src="/assets/work/sih.jpg" alt="SIH PS 25056, 24 Karat Magic" class="work-photo">
                 <p>
                     <a href="https://blog.sravjti.in/2025/12/16/24-karat-magic.html" target="_blank" rel="noopener">24 Karat Magic</a>, Smart India Hackathon, gold purity testing with Linear Sweep Voltammetry (SRA-VJTI).
                 </p>
@@ -322,7 +356,7 @@
 
             <section class="work-section">
                 <h2>Taught: Embedded Line Following Workshop</h2>
-                <img src="assets/walle.png" alt="WALL-E line following workshop" class="work-photo">
+                <img src="/assets/work/walle.png" alt="WALL-E line following workshop" class="work-photo">
                 <p>
                     Taught an embedded line following workshop.
                 </p>
@@ -330,73 +364,5 @@
         </div>
     </div>
 
-    <script>
-        const auroraCanvas = document.getElementById('aurora');
-        const auroraCtx = auroraCanvas.getContext('2d');
-
-        function resizeAurora() {
-            auroraCanvas.width = window.innerWidth;
-            auroraCanvas.height = window.innerHeight;
-        }
-        resizeAurora();
-        window.addEventListener('resize', resizeAurora);
-
-        class AuroraWave {
-            constructor(baseY, amplitude, frequency, speed, color) {
-                this.baseY = baseY;
-                this.amplitude = amplitude;
-                this.frequency = frequency;
-                this.speed = speed;
-                this.color = color;
-                this.offset = Math.random() * Math.PI * 2;
-            }
-
-            draw(time) {
-                auroraCtx.beginPath();
-
-                for (let x = 0; x <= auroraCanvas.width; x += 2) {
-                    const y = this.baseY +
-                             Math.sin(x * this.frequency + time * this.speed + this.offset) * this.amplitude +
-                             Math.sin(x * this.frequency * 0.5 + time * this.speed * 1.3) * this.amplitude * 0.5;
-
-                    if (x === 0) {
-                        auroraCtx.moveTo(x, y);
-                    } else {
-                        auroraCtx.lineTo(x, y);
-                    }
-                }
-
-                auroraCtx.lineTo(auroraCanvas.width, auroraCanvas.height);
-                auroraCtx.lineTo(0, auroraCanvas.height);
-                auroraCtx.closePath();
-
-                const gradient = auroraCtx.createLinearGradient(0, this.baseY - this.amplitude * 2, 0, this.baseY + this.amplitude * 3);
-                gradient.addColorStop(0, this.color.replace('ALPHA', '0'));
-                gradient.addColorStop(0.3, this.color.replace('ALPHA', '0.15'));
-                gradient.addColorStop(0.6, this.color.replace('ALPHA', '0.08'));
-                gradient.addColorStop(1, this.color.replace('ALPHA', '0'));
-
-                auroraCtx.fillStyle = gradient;
-                auroraCtx.fill();
-            }
-        }
-
-        const waves = [
-            new AuroraWave(auroraCanvas.height * 0.3, 60, 0.003, 0.0008, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.25, 80, 0.002, 0.0006, 'rgba(196, 30, 58, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.35, 70, 0.0025, 0.0007, 'rgba(255, 176, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.4, 50, 0.004, 0.0009, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.2, 90, 0.0015, 0.0005, 'rgba(255, 176, 0, ALPHA)')
-        ];
-
-        function animateAurora() {
-            auroraCtx.clearRect(0, 0, auroraCanvas.width, auroraCanvas.height);
-            const time = Date.now() * 0.001;
-            waves.forEach(wave => wave.draw(time));
-            requestAnimationFrame(animateAurora);
-        }
-
-        animateAurora();
-    </script>
 </body>
 </html>

@@ -7,12 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="/assets/sky.js?v=5"></script>
     <style>
         :root {
             --deep-red: #8B0000;
             --medium-red: #C41E3A;
             --warm-yellow: #FFB000;
             --light-cream: #FFF9F0;
+            --peach: #FFFFFF;
+            --peach: #FFFFFF;
             --text-dark: #1a1a1a;
         }
 
@@ -24,7 +27,7 @@
 
         body {
             font-family: 'Work Sans', sans-serif;
-            background: linear-gradient(135deg, var(--light-cream) 0%, #FFFBF5 100%);
+            background: var(--peach);
             color: var(--text-dark);
             line-height: 1.7;
             min-height: 100vh;
@@ -32,16 +35,6 @@
             position: relative;
         }
 
-        /* Aurora Canvas */
-        #aurora {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0.4;
-        }
 
         /* Butterfly & Sunflower Canvas */
         #butterfly-canvas {
@@ -52,85 +45,50 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            transition: opacity 0.6s ease;
         }
 
-        /* Decorative background elements */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, var(--warm-yellow) 0%, transparent 70%);
-            opacity: 0.08;
-            z-index: -1;
-            animation: float 20s ease-in-out infinite;
-        }
 
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%;
-            left: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, var(--medium-red) 0%, transparent 70%);
-            opacity: 0.06;
-            z-index: -1;
-            animation: float 25s ease-in-out infinite reverse;
-        }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 20px) rotate(5deg); }
-        }
 
         .container {
-            max-width: 720px;
+            max-width: 1040px;
             margin: 0 auto;
             padding: 40px 32px 80px;
             position: relative;
         }
 
-        /* Hero: left text + right photo circle */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 48px;
-            margin-bottom: 24px;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .hero-photo-wrap {
-            flex-shrink: 0;
+        /* Two columns: writing on the left, photo on the right */
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 72px;
+            align-items: start;
         }
 
         .hero-photo {
-            width: 200px;
-            height: 200px;
+            position: sticky;
+            top: 120px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--light-cream) 0%, #f5ebe0 100%);
+            background-color: var(--light-cream);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: 4px solid rgba(139, 0, 0, 0.15);
-            box-shadow: 0 12px 40px rgba(139, 0, 0, 0.12);
+            border: 4px solid var(--medium-red);
+            box-shadow: 0 12px 40px rgba(240, 80, 140, 0.18);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
 
-        /* Header / Greeting */
         .greeting {
             font-size: 15px;
             font-weight: 300;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--deep-red);
-            margin-bottom: 48px;
+            margin-bottom: 40px;
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
         }
@@ -146,38 +104,28 @@
             }
         }
 
-        /* Name */
-        h1 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 56px;
-            font-weight: 600;
-            line-height: 1.1;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--deep-red) 0%, var(--medium-red) 50%, var(--warm-yellow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Intro lines share the body writing style */
+        .line {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 14px;
+            color: var(--text-dark);
             opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards;
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
 
-        /* Location */
-        .location {
-            font-size: 16px;
-            color: var(--medium-red);
-            margin-bottom: 8px;
-            font-weight: 300;
+        /* Plain section with the same bar as blog section headings */
+        .creed {
+            margin: 40px 0 0;
+            padding: 2px 0 2px 16px;
+            border-left: 5px solid var(--medium-red);
             opacity: 0;
-            animation: fadeInUp 1s ease 0.4s forwards;
+            animation: fadeInUp 1s ease 0.8s forwards;
         }
 
-        .intro {
-            font-size: 16px;
-            color: var(--medium-red);
-            margin-bottom: 56px;
-            font-weight: 300;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
+        .creed p {
+            font-size: 18px;
+            line-height: 1.85;
         }
 
         /* Bio content */
@@ -190,7 +138,7 @@
         }
 
         .bio:last-of-type {
-            margin-bottom: 64px;
+            margin-bottom: 0;
         }
 
         .bio strong {
@@ -344,6 +292,46 @@
             color: var(--deep-red);
         }
 
+        /* Small circular photo cluster on hover */
+        .hover-cluster {
+            position: relative;
+            white-space: nowrap;
+            cursor: default;
+            border-bottom: 1px dashed var(--medium-red);
+        }
+
+        .hover-cluster .cluster {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            display: flex;
+            margin-bottom: 8px;
+            transform: translateX(-50%) translateY(6px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .hover-cluster .cluster img {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--peach);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            margin-left: -14px;
+        }
+
+        .hover-cluster .cluster img:first-child { margin-left: 0; }
+
+        .hover-cluster:hover .cluster {
+            opacity: 0.85;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
         /* Hover image effect */
         .hover-image-wrapper {
             position: relative;
@@ -375,15 +363,17 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                align-items: flex-start;
+        @media (max-width: 860px) {
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
 
             .hero-photo {
-                width: 160px;
-                height: 160px;
+                position: static;
+                order: -1;
+                width: 220px;
+                height: 220px;
             }
         }
 
@@ -402,21 +392,8 @@
                 padding: 40px 24px 60px;
             }
 
-            .hero {
-                gap: 32px;
-            }
-
-            .hero-photo {
-                width: 140px;
-                height: 140px;
-            }
-
-            h1 {
-                font-size: 42px;
-            }
-
-            .bio {
-                font-size: 17px;
+            .bio, .line {
+                font-size: 16px;
             }
 
             .sections-nav ul {
@@ -431,15 +408,14 @@
     </style>
 </head>
 <body>
-    <canvas id="aurora"></canvas>
     <canvas id="butterfly-canvas"></canvas>
 
     <header>
-        <a href="index.html" class="logo">Vrushtee</a>
+        <a href="/" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="wonder.html">Wonder</a>
-            <a href="work.html">Work</a>
-            <a href="imagine.html">Imagine</a>
+            <a href="/wonder/">Wonder</a>
+            <a href="/work/">Work</a>
+            <a href="/imagine/">Imagine</a>
         </nav>
         <div class="header-social">
             <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
@@ -448,594 +424,361 @@
     </header>
 
     <div class="container">
-        <section class="hero">
-            <div class="hero-text">
+        <div class="layout">
+            <div class="main-col">
                 <div class="greeting">Welcome</div>
-                <h1>I am Vrushtee.</h1>
-                <p class="location">Mumbai, India</p>
-                <p class="intro">I am 19. An undergrad student at VJTI.</p>
-            </div>
-            <div class="hero-photo-wrap">
-                <div class="hero-photo" style="background-image: url('assets/photo.jpg');" role="img" aria-label="Photo of Vrushtee"></div>
-            </div>
+                <p class="line">I am Vrushtee Gaikwad. 19, Mumbai.</p>
+                <p class="line">I am hopping through fun and funny moments in life. I love to make things happen with surprises.</p>
+                <p class="line">I have been making <span class="hover-cluster">robots since a year now<span class="cluster" aria-hidden="true"><img src="/assets/thumbs/so100.jpg" alt="" width="68" height="68" decoding="sync"><img src="/assets/thumbs/3d.jpg" alt="" width="68" height="68" decoding="sync"><img src="/assets/thumbs/yams.jpg" alt="" width="68" height="68" decoding="sync"></span></span>, it allows me to do dreamy things.</p>
+                <p class="line">I want to be in awe of humanity's creations, and create the ones that make me awe. I have been a Bharatanatyam dancer since the age of 5, one of the things that keeps me happy, grounded and expressive.</p>
+
+
+
+
+        <section class="creed">
+            <p>
+                Creating is about making asymmetric pieces spring into action.
+                Things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
+                I love to learn and to make <span class="hover-image-wrapper">robots<img src="/assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></span> learn.
+            </p>
         </section>
-
-        <div class="accent-line"></div>
-
-        
-        <p class="bio">
-            Creating is about making asymmetric pieces spring into action. 
-            Things that do not resonate, do not vibrate with each other. They just coalesce to form an object, a machine, or a device of great help.
-        </p>
-        <p class="bio">
-            My life recently has been a lot of <strong class="hover-image-wrapper">robotics<img src="assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></strong>. I love to learn and to make robots learn.
-        </p>
-
-        <p class="bio">
-            <span class="hover-image-wrapper">3D printed<img src="assets/3d.jpg" alt="3D printed parts" class="hover-image"></span> pieces put together with servos, cameras, and a lot of experimental models that rarely work.
-        </p>
-
-        <p class="bio">
-            Striving to optimize life. Striving to create, to bring ideas to real life.
-        </p>
-
 
         <nav class="sections-nav">
             <ul>
                 <li>
-                    <a href="wonder.html">
+                    <a href="/wonder/">
                         <h3>Wonder</h3>
                         <p>Blogs(ME)</p>
                     </a>
                 </li>
                 <li>
-                    <a href="work.html">
+                    <a href="/work/">
                         <h3>Work</h3>
                         <p>Projects</p>
                     </a>
                 </li>
                 <li>
-                    <a href="imagine.html">
+                    <a href="/imagine/">
                         <h3>Imagine</h3>
                         <p>Ideas</p>
                     </a>
                 </li>
             </ul>
         </nav>
+            </div>
+
+            <div class="hero-photo" style="background-image: url('/assets/vrushtee.jpg');" role="img" aria-label="Photo of Vrushtee"></div>
+        </div>
     </div>
 
     <script>
-        // Northern Lights Animation
-        const auroraCanvas = document.getElementById('aurora');
-        const auroraCtx = auroraCanvas.getContext('2d');
+        // Oil-pastel sunflower & butterfly (see /assets/sky.js for the pastel toolkit)
+        const canvas = document.getElementById('butterfly-canvas');
+        const ctx = canvas.getContext('2d');
+        const { stroke, bez, arc, join } = Pastel;
+        let W = 0, H = 0, dpr = 1;
 
-        function resizeAurora() {
-            auroraCanvas.width = window.innerWidth;
-            auroraCanvas.height = window.innerHeight;
+        function resizeCanvas() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
         }
-        resizeAurora();
-        window.addEventListener('resize', resizeAurora);
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        class AuroraWave {
-            constructor(baseY, amplitude, frequency, speed, color) {
-                this.baseY = baseY;
-                this.amplitude = amplitude;
-                this.frequency = frequency;
-                this.speed = speed;
-                this.color = color;
-                this.offset = Math.random() * Math.PI * 2;
+        const TAU = Math.PI * 2;
+        const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+        function layer(w, h) {
+            const cv = document.createElement('canvas');
+            cv.width = Math.ceil(w * 2);
+            cv.height = Math.ceil(h * 2);
+            const c = cv.getContext('2d');
+            c.setTransform(2, 0, 0, 2, 0, 0);
+            return { cv, c, w, h };
+        }
+
+        // ───────────── Sunflower (yellow + green outlines) ─────────────
+        const STEM_H = 190, FW = 260, FH = STEM_H + 130;
+        const YELLOW = '#FFC107', YELLOW_LT = '#FFD84D', GOLD = '#E8A200';
+        const GREEN = '#4E9A2E', GREEN_LT = '#86C23F';
+
+        function rot(pts, cx, cy, a) {
+            const s = Math.sin(a), c = Math.cos(a);
+            return pts.map(([x, y]) => [cx + x * c - y * s, cy + x * s + y * c]);
+        }
+
+        function petal(inner, len, wid) {
+            const b = [0, inner], t = [0, inner + len];
+            return join(
+                bez(b, [wid, inner + len * 0.2], [wid * 0.9, inner + len * 0.8], t, 16),
+                bez(t, [-wid * 0.9, inner + len * 0.8], [-wid, inner + len * 0.2], b, 16)
+            );
+        }
+
+        function leaf(c, x, y, size, a, seed) {
+            const out = rot(join(
+                bez([0, 0], [size * 0.25, -size * 0.42], [size * 0.75, -size * 0.4], [size, 0], 18),
+                bez([size, 0], [size * 0.75, size * 0.36], [size * 0.25, size * 0.28], [0, 0], 18)
+            ), x, y, a);
+            stroke(c, out, { color: GREEN, width: 4, passes: 3, seed });
+            stroke(c, rot([[size * 0.08, 0], [size * 0.5, -size * 0.03], [size * 0.9, 0]], x, y, a),
+                { color: GREEN_LT, width: 2.5, passes: 2, seed: seed + 5 });
+        }
+
+        const flowerLayer = (() => {
+            const L = layer(FW, FH), c = L.c;
+            const hx = FW / 2, hy = FH - STEM_H;
+
+            // stem
+            const stem = bez([hx, FH + 6], [hx - 12, FH - STEM_H * 0.35], [hx + 14, FH - STEM_H * 0.7], [hx, hy + 22], 40);
+            stroke(c, stem, { color: GREEN, width: 6, passes: 3, seed: 3 });
+            stroke(c, stem.map(([x, y]) => [x + 2.5, y]), { color: GREEN_LT, width: 3, passes: 2, seed: 4 });
+
+            leaf(c, hx - 4, FH - STEM_H * 0.28, 62, Math.PI + 0.38, 30);
+            leaf(c, hx + 3, FH - STEM_H * 0.52, 54, -0.42, 40);
+
+            // petals: outer ring, then a shorter lighter ring between
+            const n = 13, r = Pastel.rng(7);
+            for (let i = 0; i < n; i++) {
+                const a = (i / n) * TAU;
+                stroke(c, rot(petal(18, 46 + (r() - 0.5) * 8, 13), hx, hy, a), { color: YELLOW, width: 4, passes: 3, seed: 100 + i });
+            }
+            for (let i = 0; i < n; i++) {
+                const a = ((i + 0.5) / n) * TAU;
+                stroke(c, rot(petal(18, 34 + (r() - 0.5) * 6, 9), hx, hy, a), { color: YELLOW_LT, width: 3.5, passes: 2, seed: 200 + i });
             }
 
-            draw(time) {
-                auroraCtx.beginPath();
-
-                for (let x = 0; x <= auroraCanvas.width; x += 2) {
-                    const y = this.baseY +
-                             Math.sin(x * this.frequency + time * this.speed + this.offset) * this.amplitude +
-                             Math.sin(x * this.frequency * 0.5 + time * this.speed * 1.3) * this.amplitude * 0.5;
-
-                    if (x === 0) {
-                        auroraCtx.moveTo(x, y);
-                    } else {
-                        auroraCtx.lineTo(x, y);
-                    }
-                }
-
-                auroraCtx.lineTo(auroraCanvas.width, auroraCanvas.height);
-                auroraCtx.lineTo(0, auroraCanvas.height);
-                auroraCtx.closePath();
-
-                const gradient = auroraCtx.createLinearGradient(0, this.baseY - this.amplitude * 2, 0, this.baseY + this.amplitude * 3);
-                gradient.addColorStop(0, this.color.replace('ALPHA', '0'));
-                gradient.addColorStop(0.3, this.color.replace('ALPHA', '0.15'));
-                gradient.addColorStop(0.6, this.color.replace('ALPHA', '0.08'));
-                gradient.addColorStop(1, this.color.replace('ALPHA', '0'));
-
-                auroraCtx.fillStyle = gradient;
-                auroraCtx.fill();
+            // centre: two rings and a spiral
+            stroke(c, arc(hx, hy, 19, 19, 0, TAU * 1.03), { color: GOLD, width: 4, passes: 3, seed: 300 });
+            stroke(c, arc(hx, hy, 12.5, 12.5, 0.6, TAU * 1.02), { color: YELLOW, width: 3, passes: 2, seed: 301 });
+            const sp = [];
+            for (let i = 0; i < 70; i++) {
+                const a = i * 0.28, rr = 1 + i * 0.12;
+                sp.push([hx + Math.cos(a) * rr, hy + Math.sin(a) * rr]);
             }
+            stroke(c, sp, { color: GOLD, width: 2.5, passes: 2, seed: 302 });
+            return L;
+        })();
+
+        const baseX = () => W - 110;
+        const swayAt = t => Math.sin(t * 0.7) * 0.035 + Math.sin(t * 1.9) * 0.008;
+
+        function headPos(t) {
+            const a = swayAt(t);
+            return { x: baseX() + Math.sin(a) * STEM_H, y: H + 6 - Math.cos(a) * STEM_H };
         }
 
-        const waves = [
-            new AuroraWave(auroraCanvas.height * 0.3, 60, 0.003, 0.0008, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.25, 80, 0.002, 0.0006, 'rgba(196, 30, 58, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.35, 70, 0.0025, 0.0007, 'rgba(255, 176, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.4, 50, 0.004, 0.0009, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.2, 90, 0.0015, 0.0005, 'rgba(255, 176, 0, ALPHA)')
-        ];
-
-        function animateAurora() {
-            auroraCtx.clearRect(0, 0, auroraCanvas.width, auroraCanvas.height);
-            const time = Date.now() * 0.001;
-            waves.forEach(wave => wave.draw(time));
-            requestAnimationFrame(animateAurora);
+        function drawSunflower(t) {
+            ctx.save();
+            ctx.translate(baseX(), H + 6);
+            ctx.rotate(swayAt(t));
+            ctx.drawImage(flowerLayer.cv, -FW / 2, -FH, FW, FH);
+            ctx.restore();
         }
 
-        animateAurora();
+        // ───────────── Butterfly (orange wings, brown body & antennae) ─────────────
+        const ORANGE = '#FF8A00', ORANGE_LT = '#FFA83D', BROWN = '#8A5230';
+        const WOX = 4, WOY = 80, WW = 104, WH = 150;
 
-        // Butterfly & Sunflower Animation
-        const butterflyCanvas = document.getElementById('butterfly-canvas');
-        const ctx = butterflyCanvas.getContext('2d');
+        const shift = pts => pts.map(([x, y]) => [x + WOX, y + WOY]);
+        const grow = (pts, cx, cy, k) => pts.map(([x, y]) => [cx + (x - cx) * k, cy + (y - cy) * k]);
 
-        function resizeButterfly() {
-            butterflyCanvas.width = window.innerWidth;
-            butterflyCanvas.height = window.innerHeight;
-        }
-        resizeButterfly();
-        window.addEventListener('resize', resizeButterfly);
-
-        const sunflowerX = () => butterflyCanvas.width - 120;
-        const sunflowerY = () => butterflyCanvas.height - 120;
-
-        function drawSunflower(x, y) {
-            const centerRadius = 20;
-            const petalLength = 28;
-            const numPetals = 12;
-
-            // Petals
-            for (let i = 0; i < numPetals; i++) {
-                const angle = (i / numPetals) * Math.PI * 2;
-                const petalX = x + Math.cos(angle) * centerRadius;
-                const petalY = y + Math.sin(angle) * centerRadius;
-
-                ctx.save();
-                ctx.translate(petalX, petalY);
-                ctx.rotate(angle);
-
-                ctx.beginPath();
-                ctx.ellipse(0, 0, 7, petalLength, 0, 0, Math.PI * 2);
-                ctx.fillStyle = '#FFB000';
-                ctx.fill();
-                ctx.strokeStyle = '#D49500';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
-                ctx.restore();
-            }
-
-            // Center
-            const centerGradient = ctx.createRadialGradient(x, y, 0, x, y, centerRadius);
-            centerGradient.addColorStop(0, '#8B0000');
-            centerGradient.addColorStop(0.7, '#C41E3A');
-            centerGradient.addColorStop(1, '#8B0000');
-
-            ctx.beginPath();
-            ctx.arc(x, y, centerRadius, 0, Math.PI * 2);
-            ctx.fillStyle = centerGradient;
-            ctx.fill();
-
-            // Seeds pattern
-            for (let i = 0; i < 15; i++) {
-                const spiralAngle = i * 0.6;
-                const spiralRadius = i * 1.1;
-                const sx = x + Math.cos(spiralAngle) * spiralRadius;
-                const sy = y + Math.sin(spiralAngle) * spiralRadius;
-
-                ctx.beginPath();
-                ctx.arc(sx, sy, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-                ctx.fill();
-            }
-
-            // Stem
-            ctx.strokeStyle = '#6B8E23';
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(x, y + centerRadius);
-            ctx.quadraticCurveTo(x - 8, y + 50, x - 5, y + 80);
-            ctx.stroke();
+        function wingLayer(outline, veins, cx, cy, seed) {
+            const L = layer(WW, WH), c = L.c;
+            stroke(c, shift(outline), { color: ORANGE, width: 4.5, passes: 3, seed });
+            stroke(c, shift(grow(outline, cx, cy, 0.86)), { color: ORANGE_LT, width: 2.5, passes: 2, seed: seed + 1 });
+            veins.forEach((v, i) => stroke(c, shift(v), { color: ORANGE, width: 2.2, passes: 2, seed: seed + 10 + i }));
+            return L;
         }
 
-        // Beautiful butterfly — bezier wings, gradients, veins, eyespot, particle trail
-        const particles = [];
+        const foreOutline = join(
+            bez([4, -4], [8, -42], [42, -74], [76, -64], 28),
+            bez([76, -64], [92, -58], [90, -34], [72, -14], 20),
+            bez([72, -14], [56, 2], [28, 6], [4, 3], 20),
+            [[4, -4]]
+        );
+        const hindOutline = join(
+            bez([4, 2], [30, 2], [58, 6], [62, 24], 20),
+            bez([62, 24], [66, 44], [46, 58], [28, 52], 20),
+            bez([28, 52], [14, 47], [6, 26], [4, 10], 16),
+            [[4, 2]]
+        );
+        const foreWing = wingLayer(foreOutline, [
+            bez([5, -2], [30, -30], [50, -50], [74, -58], 12),
+            bez([5, 0], [34, -16], [58, -30], [84, -34], 12),
+            bez([5, 1], [30, -4], [50, -8], [68, -12], 12)
+        ], 40, -28, 500);
+        const hindWing = wingLayer(hindOutline, [
+            bez([5, 4], [26, 14], [44, 24], [58, 36], 12),
+            bez([5, 6], [18, 24], [26, 38], [32, 50], 12)
+        ], 32, 28, 600);
+
+        const bodyLayer = (() => {
+            const L = layer(60, 100), c = L.c, ox = 30, oy = 56;
+            const ell = (x, y, rx, ry) => arc(ox + x, oy + y, rx, ry, 0, TAU * 1.03, 36);
+            stroke(c, ell(0, 16, 4.6, 16), { color: BROWN, width: 4.5, passes: 3, seed: 700 });
+            stroke(c, ell(0, -4, 6.5, 10), { color: BROWN, width: 4.5, passes: 3, seed: 701 });
+            stroke(c, ell(0, -16, 5, 5), { color: BROWN, width: 4, passes: 3, seed: 702 });
+            [-1, 1].forEach((s, i) => {
+                const a = bez([ox + s * 2, oy - 18], [ox + s * 9, oy - 30], [ox + s * 13, oy - 38], [ox + s * 17, oy - 45], 16);
+                stroke(c, a, { color: BROWN, width: 3, passes: 2, seed: 710 + i });
+                const tip = a[a.length - 1];
+                stroke(c, arc(tip[0], tip[1], 2.6, 2.6, 0, TAU * 1.05, 14), { color: BROWN, width: 2.2, passes: 2, seed: 720 + i });
+            });
+            return L;
+        })();
 
         const butterfly = {
-            x: sunflowerX(),
-            y: sunflowerY() - 60,
-            angle: 0,
-            wingAngle: 0,
-            orbitAngle: 0,
-            orbitRadius: 52,
-            hovering: true,
-            hoverTime: 0,
-            flyingToTarget: false,
-            targetX: 0,
-            targetY: 0,
+            x: 0, y: 0, vx: 0, vy: 0,
+            phase: 0,
+            rot: 0,
+            state: 'hover',      // hover | perch | link
+            stateTime: 0,
+            nextPerch: 9,
+            targetX: 0, targetY: 0,
             navigateTo: null
         };
 
+        function placeButterflyAtFlower() {
+            const h = headPos(performance.now() / 1000);
+            butterfly.x = h.x - 70;
+            butterfly.y = h.y - 60;
+            butterfly.vx = butterfly.vy = 0;
+        }
+        placeButterflyAtFlower();
+
         function flyButterflyToThenNavigate(targetX, targetY, url) {
-            butterfly.flyingToTarget = true;
+            butterfly.state = 'link';
             butterfly.targetX = targetX;
             butterfly.targetY = targetY;
             butterfly.navigateTo = url;
         }
 
-        function addFlightParticles(x, y) {
-            if (Math.random() < 0.55) {
-                particles.push({
-                    x: x + (Math.random() - 0.5) * 20,
-                    y: y + (Math.random() - 0.5) * 20,
-                    vx: (Math.random() - 0.5) * 1.4,
-                    vy: (Math.random() - 0.5) * 1.4 - 0.25,
-                    life: 1,
-                    decay: 0.022 + Math.random() * 0.022,
-                    size: 1.2 + Math.random() * 2.5,
-                    gold: Math.random() > 0.38
-                });
-                if (particles.length > 35) particles.shift();
-            }
-        }
+        function drawButterfly(b) {
+            // Fast down-stroke, slower up-stroke; hindwings lag a little
+            const w = b.phase + 0.55 * Math.sin(b.phase);
+            const open = 0.5 + 0.5 * Math.cos(w);
+            const lag = 0.5 + 0.5 * Math.cos(w - 0.7);
+            const sxFore = 0.2 + 0.8 * Math.pow(open, 0.5);
+            const sxHind = 0.25 + 0.75 * Math.pow(lag, 0.5);
+            const shear = -0.12 * Math.sin(w);
+            const lift = Math.sin(w) * 4;
 
-        function drawParticles() {
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.life -= p.decay;
-                if (p.life <= 0) { particles.splice(i, 1); continue; }
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-                ctx.fillStyle = p.gold
-                    ? `rgba(255, 176, 0, ${p.life * 0.75})`
-                    : `rgba(196, 30, 58, ${p.life * 0.6})`;
-                ctx.fill();
-            }
-        }
-
-        // Draws one side of the butterfly wings (right side).
-        // Called twice: once normally (right), once inside ctx.scale(-1,1) (left).
-        function drawWingSide(flapScale) {
-            // ── Upper forewing ──
             ctx.save();
-            ctx.scale(flapScale, 1);
+            ctx.translate(b.x, b.y + lift);
+            ctx.rotate(b.rot);
+            ctx.scale(0.95, 0.95);
 
-            const ug = ctx.createLinearGradient(3, -8, 68, -40);
-            ug.addColorStop(0,    'rgba(100, 0,   0,   0.95)');
-            ug.addColorStop(0.18, 'rgba(172, 22,  42,  0.92)');
-            ug.addColorStop(0.48, 'rgba(208, 64,  0,   0.88)');
-            ug.addColorStop(0.80, 'rgba(242, 128, 0,   0.82)');
-            ug.addColorStop(1,    'rgba(255, 180, 0,   0.75)');
-
-            ctx.beginPath();
-            ctx.moveTo(3, -8);
-            ctx.bezierCurveTo(14, -35, 44, -58, 64, -42);
-            ctx.bezierCurveTo(74, -30, 72, -8,  60,  7);
-            ctx.bezierCurveTo(46,  22, 18,  21,  3,  8);
-            ctx.closePath();
-            ctx.fillStyle = ug;
-            ctx.fill();
-
-            // Dark outer border band
-            const ubg = ctx.createLinearGradient(3, -8, 68, -40);
-            ubg.addColorStop(0.50, 'rgba(0, 0, 0, 0)');
-            ubg.addColorStop(0.76, 'rgba(15, 0, 0, 0.28)');
-            ubg.addColorStop(1,    'rgba(5,  0, 0, 0.64)');
-            ctx.beginPath();
-            ctx.moveTo(3, -8);
-            ctx.bezierCurveTo(14, -35, 44, -58, 64, -42);
-            ctx.bezierCurveTo(74, -30, 72, -8,  60,  7);
-            ctx.bezierCurveTo(46,  22, 18,  21,  3,  8);
-            ctx.closePath();
-            ctx.fillStyle = ubg;
-            ctx.fill();
-
-            // Outline
-            ctx.strokeStyle = 'rgba(35, 0, 0, 0.65)';
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-
-            // Wing veins
-            ctx.save();
-            ctx.strokeStyle = 'rgba(28, 0, 0, 0.30)';
-            ctx.lineWidth = 0.75;
-            [
-                [3, -8,  32, -48, 64, -42],
-                [4, -2,  32, -28, 70, -18],
-                [4,  2,  30, -10, 68,  -4],
-                [4,  6,  28,  10, 58,   8],
-                [4,  8,  24,  18, 44,  20],
-            ].forEach(([x0, y0, cx, cy, x1, y1]) => {
-                ctx.beginPath();
-                ctx.moveTo(x0, y0);
-                ctx.quadraticCurveTo(cx, cy, x1, y1);
-                ctx.stroke();
-            });
-            ctx.restore();
-
-            // Cream border dots
-            [[63,-42],[70,-28],[72,-12],[67,4],[59,10]].forEach(([dx, dy]) => {
-                ctx.beginPath();
-                ctx.arc(dx, dy, 2.3, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 246, 210, 0.72)';
-                ctx.fill();
+            [1, -1].forEach(side => {
+                ctx.save();
+                ctx.scale(side, 1);
+                ctx.save();
+                ctx.transform(sxHind, shear * 0.6, 0, 1, 0, 0);
+                ctx.drawImage(hindWing.cv, -WOX, -WOY, WW, WH);
+                ctx.restore();
+                ctx.save();
+                ctx.transform(sxFore, shear, 0, 1, 0, 0);
+                ctx.drawImage(foreWing.cv, -WOX, -WOY, WW, WH);
+                ctx.restore();
+                ctx.restore();
             });
 
-            ctx.restore(); // upper forewing
-
-            // ── Lower hindwing ──
-            ctx.save();
-            ctx.scale(flapScale * 0.92, 1);
-
-            const lg = ctx.createLinearGradient(3, 10, 56, 40);
-            lg.addColorStop(0,    'rgba(100, 0,   0,   0.95)');
-            lg.addColorStop(0.28, 'rgba(172, 22,  42,  0.90)');
-            lg.addColorStop(0.62, 'rgba(210, 70,  0,   0.84)');
-            lg.addColorStop(1,    'rgba(255, 176, 0,   0.74)');
-
-            ctx.beginPath();
-            ctx.moveTo(3, 10);
-            ctx.bezierCurveTo(20, 28, 48, 48, 54, 32);
-            ctx.bezierCurveTo(58, 20, 52,  5, 40,  8);
-            ctx.bezierCurveTo(27, 10, 11, 10,  3, 10);
-            ctx.closePath();
-            ctx.fillStyle = lg;
-            ctx.fill();
-
-            const lbg = ctx.createLinearGradient(3, 10, 56, 40);
-            lbg.addColorStop(0.48, 'rgba(0, 0, 0, 0)');
-            lbg.addColorStop(0.74, 'rgba(15, 0, 0, 0.24)');
-            lbg.addColorStop(1,    'rgba(5,  0, 0, 0.55)');
-            ctx.beginPath();
-            ctx.moveTo(3, 10);
-            ctx.bezierCurveTo(20, 28, 48, 48, 54, 32);
-            ctx.bezierCurveTo(58, 20, 52,  5, 40,  8);
-            ctx.bezierCurveTo(27, 10, 11, 10,  3, 10);
-            ctx.closePath();
-            ctx.fillStyle = lbg;
-            ctx.fill();
-
-            ctx.strokeStyle = 'rgba(35, 0, 0, 0.65)';
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-
-            // Hindwing veins
-            ctx.save();
-            ctx.strokeStyle = 'rgba(28, 0, 0, 0.28)';
-            ctx.lineWidth = 0.75;
-            [
-                [4, 10, 28, 42, 54, 32],
-                [4, 11, 26, 26, 52, 20],
-                [4, 12, 22, 16, 40, 10],
-            ].forEach(([x0, y0, cx, cy, x1, y1]) => {
-                ctx.beginPath();
-                ctx.moveTo(x0, y0);
-                ctx.quadraticCurveTo(cx, cy, x1, y1);
-                ctx.stroke();
-            });
-            ctx.restore();
-
-            // Eyespot
-            const espX = 42, espY = 30;
-            ctx.beginPath();
-            ctx.arc(espX, espY, 9, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(12, 0, 0, 0.80)';
-            ctx.fill();
-
-            const espG = ctx.createRadialGradient(espX, espY, 0, espX, espY, 6.5);
-            espG.addColorStop(0,   'rgba(195, 125, 255, 0.88)');
-            espG.addColorStop(0.5, 'rgba(112, 58,  215, 0.76)');
-            espG.addColorStop(1,   'rgba(55,  5,   160, 0.56)');
-            ctx.beginPath();
-            ctx.arc(espX, espY, 6.5, 0, Math.PI * 2);
-            ctx.fillStyle = espG;
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(espX, espY, 2.8, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.92)';
-            ctx.fill();
-
-            // Catchlight
-            ctx.beginPath();
-            ctx.arc(espX - 0.9, espY - 0.9, 1.0, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-            ctx.fill();
-
-            // Hindwing border dots
-            [[52, 32],[55, 20],[48, 44]].forEach(([dx, dy]) => {
-                ctx.beginPath();
-                ctx.arc(dx, dy, 2.0, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 246, 210, 0.68)';
-                ctx.fill();
-            });
-
-            ctx.restore(); // lower hindwing
-        }
-
-        function drawButterfly(x, y, wingAngle, rotation) {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(rotation);
-            ctx.scale(0.78, 0.78);
-
-            // Perspective-foreshortening flap: wings go from ~45% to 100% open
-            const flapScale = 0.45 + 0.55 * Math.abs(Math.cos(wingAngle * 0.58));
-
-            // Soft glow
-            ctx.shadowColor = 'rgba(196, 30, 58, 0.32)';
-            ctx.shadowBlur = 26;
-
-            // Right wings
-            drawWingSide(flapScale);
-
-            // Left wings (mirror)
-            ctx.save();
-            ctx.scale(-1, 1);
-            drawWingSide(flapScale);
-            ctx.restore();
-
-            // Body (no glow)
-            ctx.shadowBlur = 0;
-            ctx.shadowColor = 'transparent';
-
-            const bodyG = ctx.createLinearGradient(0, -15, 0, 22);
-            bodyG.addColorStop(0,    '#4a0000');
-            bodyG.addColorStop(0.3,  '#790000');
-            bodyG.addColorStop(0.65, '#5a0000');
-            bodyG.addColorStop(1,    '#360000');
-
-            // Thorax
-            ctx.beginPath();
-            ctx.ellipse(0, -4, 5, 8, 0, 0, Math.PI * 2);
-            ctx.fillStyle = bodyG;
-            ctx.fill();
-            ctx.strokeStyle = 'rgba(15, 0, 0, 0.55)';
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-
-            // Abdomen
-            ctx.beginPath();
-            ctx.ellipse(0, 11, 3.5, 11, 0, 0, Math.PI * 2);
-            ctx.fillStyle = bodyG;
-            ctx.fill();
-            ctx.stroke();
-
-            // Abdomen segments
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.22)';
-            ctx.lineWidth = 0.55;
-            for (let i = 0; i < 5; i++) {
-                const sy = 3 + i * 4.2;
-                const hw = 3.5 * Math.sqrt(Math.max(0, 1 - ((sy - 11) / 11) ** 2));
-                ctx.beginPath();
-                ctx.moveTo(-hw, sy);
-                ctx.lineTo(hw, sy);
-                ctx.stroke();
-            }
-
-            // Head
-            ctx.beginPath();
-            ctx.arc(0, -14, 4.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#360000';
-            ctx.fill();
-            ctx.strokeStyle = 'rgba(15, 0, 0, 0.5)';
-            ctx.lineWidth = 0.7;
-            ctx.stroke();
-
-            // Eyes
-            ctx.fillStyle = '#FFD700';
-            [-2.8, 2.8].forEach(ex => {
-                ctx.beginPath();
-                ctx.arc(ex, -15, 1.2, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            // Antennae
-            ctx.strokeStyle = '#360000';
-            ctx.lineWidth = 1.3;
-            ctx.beginPath();
-            ctx.moveTo(-2.5, -18);
-            ctx.quadraticCurveTo(-13, -33, -17, -44);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(2.5, -18);
-            ctx.quadraticCurveTo(13, -33, 17, -44);
-            ctx.stroke();
-
-            // Antennae club tips
-            [[-17, -44], [17, -44]].forEach(([ax, ay]) => {
-                const tipG = ctx.createRadialGradient(ax, ay, 0, ax, ay, 3.2);
-                tipG.addColorStop(0,   '#FFB000');
-                tipG.addColorStop(0.5, '#C41E3A');
-                tipG.addColorStop(1,   '#8B0000');
-                ctx.beginPath();
-                ctx.arc(ax, ay, 3.2, 0, Math.PI * 2);
-                ctx.fillStyle = tipG;
-                ctx.fill();
-            });
-
+            ctx.drawImage(bodyLayer.cv, -30, -56, 60, 100);
             ctx.restore();
         }
 
-        function animateButterfly() {
-            ctx.clearRect(0, 0, butterflyCanvas.width, butterflyCanvas.height);
+        let lastT = performance.now() / 1000;
 
-            const sfX = sunflowerX();
-            const sfY = sunflowerY();
-            drawSunflower(sfX, sfY);
+        const isNight = () => document.documentElement.getAttribute('data-theme') === 'dark';
 
-            drawParticles();
+        function animate() {
+            canvas.style.opacity = isNight() ? 0 : 1;   // no flower or butterfly at night
+            const t = performance.now() / 1000;
+            const dt = Math.min(0.05, t - lastT);
+            lastT = t;
 
-            butterfly.wingAngle += 0.13;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, W, H);
 
-            if (butterfly.flyingToTarget) {
-                const dx = butterfly.targetX - butterfly.x;
-                const dy = butterfly.targetY - butterfly.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+            drawSunflower(t);
 
+            const b = butterfly;
+            b.stateTime += dt;
+            const head = headPos(t);
+            let flapRate, tx, ty;
+
+            if (b.state === 'link') {
+                tx = b.targetX; ty = b.targetY;
+                flapRate = 30;
+                const dx = tx - b.x, dy = ty - b.y;
+                const dist = Math.hypot(dx, dy);
                 if (dist < 18) {
-                    window.location.href = butterfly.navigateTo;
+                    window.location.href = b.navigateTo;
                     return;
                 }
-
-                const speed = Math.min(14, Math.max(6, dist * 0.12));
-                butterfly.x += (dx / dist) * speed;
-                butterfly.y += (dy / dist) * speed;
-                butterfly.orbitAngle = Math.atan2(dy, dx);
-                addFlightParticles(butterfly.x, butterfly.y);
+                const sp = clamp(dist * 0.1, 5, 12);
+                b.x += (dx / dist) * sp;
+                b.y += (dy / dist) * sp;
+                b.rot += (Math.atan2(dx, -dy) - b.rot) * 0.2;
             } else {
-                butterfly.hoverTime += 0.014;
-                // Gentle straight drift — side-to-side and slight vertical bob
-                const hoverX = sfX + Math.sin(butterfly.hoverTime * 0.75) * 30;
-                const hoverY = sfY - 52 + Math.sin(butterfly.hoverTime * 0.4) * 12;
-
-                butterfly.x += (hoverX - butterfly.x) * 0.025;
-                butterfly.y += (hoverY - butterfly.y) * 0.025;
+                let px, py;
+                if (b.state === 'perch') {
+                    // lands on the flower and slowly opens and closes its wings
+                    tx = head.x + 4; ty = head.y - 36;
+                    const arrived = Math.hypot(tx - b.x, ty - b.y) < 6;
+                    flapRate = arrived ? 2.2 + Math.sin(t * 1.5) * 1.2 : 18;
+                    if (b.stateTime > 6) { b.state = 'hover'; b.stateTime = 0; b.nextPerch = 12 + Math.random() * 10; }
+                    px = tx; py = ty;
+                } else {
+                    // "trying to fly": wobbly figure-eight that sinks between wingbeat bursts
+                    const k = t * 0.5;
+                    const burst = 0.5 + 0.5 * Math.sin(t * 1.3);
+                    px = head.x - 20 + Math.sin(k) * 80 + Math.sin(t * 3.3) * 6;
+                    py = head.y - 80 + Math.sin(k * 2) * 30 + (1 - burst) * 24 + Math.sin(t * 4.1) * 5;
+                    flapRate = 11 + 13 * burst;
+                    if (b.stateTime > b.nextPerch) { b.state = 'perch'; b.stateTime = 0; }
+                }
+                const ox = b.x, oy = b.y;
+                const ease = b.state === 'perch' ? 0.045 : 0.05;
+                b.x += (px - b.x) * ease;
+                b.y += (py - b.y) * ease;
+                b.vx = b.x - ox;
+                b.vy = b.y - oy;
+                const speed = Math.hypot(b.vx, b.vy);
+                const want = (speed > 0.5 ? clamp(Math.atan2(b.vx, -b.vy), -0.6, 0.6) : 0) + Math.sin(b.phase) * 0.06;
+                b.rot += (want - b.rot) * 0.08;
             }
 
-            // atan2(dx, -dy) makes the antennae (local -y) point toward the target
-            const rotation = butterfly.flyingToTarget
-                ? Math.atan2(butterfly.targetX - butterfly.x, -(butterfly.targetY - butterfly.y))
-                : Math.sin(butterfly.hoverTime * 0.4) * 0.1;
-
-            drawButterfly(butterfly.x, butterfly.y, butterfly.wingAngle, rotation);
-            requestAnimationFrame(animateButterfly);
+            b.phase += flapRate * dt;
+            drawButterfly(b);
+            requestAnimationFrame(animate);
         }
 
-        animateButterfly();
+        animate();
 
-        // When coming back (e.g. back button or bfcache), restart butterfly so it doesn't disappear
+        // Back button / bfcache: reset the butterfly so it doesn't vanish
         window.addEventListener('pageshow', function(e) {
             if (e.persisted) {
-                butterfly.flyingToTarget = false;
+                butterfly.state = 'hover';
+                butterfly.stateTime = 0;
                 butterfly.navigateTo = null;
-                butterfly.hovering = true;
-                butterfly.x = sunflowerX() + 20;
-                butterfly.y = sunflowerY() - 50;
-                butterfly.orbitAngle = 0;
-                resizeButterfly();
-                animateButterfly();
+                resizeCanvas();
+                placeButterflyAtFlower();
+                lastT = performance.now() / 1000;
+                animate();
             }
         });
 
-        // Click Wonder / Work / Imagine: butterfly flies to link, then page opens
-        document.querySelectorAll('a[href="wonder.html"], a[href="work.html"], a[href="imagine.html"]').forEach(function(link) {
+        // Click Wonder / Work / Imagine: butterfly flies to the link, then the page opens
+        document.querySelectorAll('a[href="/wonder/"], a[href="/work/"], a[href="/imagine/"]').forEach(function(link) {
             link.addEventListener('click', function(e) {
+                if (isNight()) return;
                 e.preventDefault();
                 const rect = this.getBoundingClientRect();
-                const targetX = rect.left + rect.width / 2;
-                const targetY = rect.top + rect.height / 2;
-                flyButterflyToThenNavigate(targetX, targetY, this.getAttribute('href'));
+                flyButterflyToThenNavigate(rect.left + rect.width / 2, rect.top + rect.height / 2, this.getAttribute('href'));
             });
         });
     </script>

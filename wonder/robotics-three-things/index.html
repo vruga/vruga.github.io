@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robotics changes everyday but it is still the same three things — Wonder — Vrushtee</title>
+    <title>Robotics changes everyday but it is the same three things — Wonder — Vrushtee</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="/assets/sky.js?v=5"></script>
     <style>
         :root {
             --deep-red: #8B0000;
             --medium-red: #C41E3A;
             --warm-yellow: #FFB000;
             --light-cream: #FFF9F0;
+            --peach: #FFFFFF;
             --text-dark: #1a1a1a;
         }
 
@@ -20,47 +22,12 @@
 
         body {
             font-family: 'Work Sans', sans-serif;
-            background: linear-gradient(135deg, var(--light-cream) 0%, #FFFBF5 100%);
+            background: var(--peach);
             color: var(--text-dark);
             line-height: 1.7;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-        }
-
-        #aurora {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -2;
-            opacity: 0.4;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%; right: -10%;
-            width: 60%; height: 60%;
-            background: radial-gradient(circle, var(--warm-yellow) 0%, transparent 70%);
-            opacity: 0.08;
-            z-index: -1;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%; left: -10%;
-            width: 50%; height: 50%;
-            background: radial-gradient(circle, var(--medium-red) 0%, transparent 70%);
-            opacity: 0.06;
-            z-index: -1;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 20px) rotate(5deg); }
         }
 
         header {
@@ -283,16 +250,16 @@
             .article-title { font-size: 28px; }
         }
     </style>
+    <link rel="stylesheet" href="/assets/blog.css?v=3">
 </head>
 <body>
-    <canvas id="aurora"></canvas>
 
     <header>
-        <a href="index.html" class="logo">Vrushtee</a>
+        <a href="/" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="wonder.html" class="active">Wonder</a>
-            <a href="work.html">Work</a>
-            <a href="imagine.html">Imagine</a>
+            <a href="/wonder/" class="active">Wonder</a>
+            <a href="/work/">Work</a>
+            <a href="/imagine/">Imagine</a>
         </nav>
         <div class="header-social">
             <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
@@ -301,10 +268,11 @@
     </header>
 
     <div class="container">
-        <a href="wonder.html" class="back-link">← Wonder</a>
+        <a href="/wonder/" class="back-link">← Wonder</a>
 
         <article class="article">
-            <h1 class="article-title">Robotics changes everyday but it is still the same three things</h1>
+            <p class="article-kicker">Wonder · 03</p>
+            <h1 class="article-title">Robotics changes everyday but it is the same three things</h1>
             <p class="article-byline">
                 <a href="https://vruga.site" target="_blank" rel="noopener">Vrushtee </a>,
                 <a href="https://dimios45.github.io" target="_blank" rel="noopener">Tirth</a>
@@ -312,7 +280,7 @@
             <p class="article-meta">July 2025 · <a href="https://github.com/vruga/flow-skill" target="_blank" rel="noopener">Repository: flow-skill (GitHub)</a></p>
 
             <p class="article-lead-img">
-                <img src="assets/cube_picked.png" alt="Cube picked">
+                <img src="/assets/cube_picked.png" alt="Cube picked">
             </p>
 
             <p>
@@ -332,7 +300,7 @@
                 <li>VLAs and Foundation models / video models?</li>
             </ul>
 
-            <p class="article-section">The catch</p>
+            <h2 class="article-section">The catch</h2>
 
             <p>
                 We did not know how to start with robotics. So we decided to start with the toughest problem because anyways we didn't know shit.
@@ -346,35 +314,35 @@
                 Visual sim2real transfer is meant to be tough because simulators cannot exactly replicate the physics involved with the real world, there are always certain unexpected deltas.
             </p>
 
-            <p class="article-section">1) Reinforcement learning</p>
+            <h2 class="article-section">1) Reinforcement learning</h2>
 
             <p>
                 Making robots pick up objects or robot manipulation is uniquely difficult.
             </p>
 
-            <p class="article-subsection">What we said</p>
+            <h3 class="article-subsection">What we said</h3>
             <p>
                 The toughest problem of robot learning: the zero shot sim2real transfer with our SO100 arm. Not gonna lie this sounds cool with zero real data. How is the robot learning real successful manipulation with absolute no prior experience.
             </p>
 
-            <p class="article-subsection">What we had</p>
+            <h3 class="article-subsection">What we had</h3>
             <ul>
                 <li>3D printed SO100</li>
                 <li>Camera (phone camera worked)</li>
                 <li>RTX 4090</li>
             </ul>
 
-            <p class="article-subsection">Our task</p>
+            <h3 class="article-subsection">Our task</h3>
             <p>
                 Teach our SO100 to pick up a cube with just a camera (no depth involved). The PPO algorithm is able to achieve a robust sim2real pipeline with a definitive range of spawn size and area for the cube. Zero shot sim2real is this: no prior demonstrations and then the pipeline is robust enough to make the robot pick the unseen cube.
             </p>
 
-            <p class="article-subsection">Why did we say manipulation is hard</p>
+            <h3 class="article-subsection">Why did we say manipulation is hard</h3>
             <p>
                 Because manipulation requires contact. We account for all the forces acting with that also the robot control. Simulation is perfect but variability in hardware makes it tough. We account for offsets in motors, home pose, camera alignment as well as robot calibration.
             </p>
 
-            <p class="article-subsection">Robust policy? Domain randomization?</p>
+            <h3 class="article-subsection">Robust policy? Domain randomization?</h3>
             <p>
                 Robot learning loves these terms. What are they: for me they mean control.
             </p>
@@ -382,7 +350,7 @@
                 More of these two means better control for tasks, for robots.
             </p>
 
-            <p class="article-subsection">How much domain randomization</p>
+            <h3 class="article-subsection">How much domain randomization</h3>
             <p>
                 Our policy had domain randomization options we weren't sure of.
             </p>
@@ -393,16 +361,16 @@
                 The robot workspace was limited; the spawn area was supposed to be defined.
             </p>
             <p>
-                <img src="assets/ppo_simulation.gif" alt="PPO simulation">
+                <img src="/assets/ppo_simulation.gif" alt="PPO simulation">
                 <span class="media-caption">Simulation</span>
             </p>
 
-            <p class="article-subsection">What does SO100 calibration mean</p>
+            <h3 class="article-subsection">What does SO100 calibration mean</h3>
             <p>
                 The normal SO100 calibration script that exists in LeRobot which all of us have come across.
             </p>
 
-            <p class="article-subsection">Camera alignment</p>
+            <h3 class="article-subsection">Camera alignment</h3>
             <p>
                 The most time taking part in sim2real. This is the most important input for the transfer of our policy trained in simulation.
             </p>
@@ -413,11 +381,11 @@
                 In alignment scripts, basically you align the shadow of your 3D environment to match the camera output seen on the screen as close as it gets, to note down the x, y, z coordinates with the FOV values.
             </p>
             <p>
-                <img src="assets/cam_align.jpeg" alt="Camera alignment">
+                <img src="/assets/cam_align.jpeg" alt="Camera alignment">
                 <span class="media-caption">Camera alignment</span>
             </p>
 
-            <p class="article-subsection">Why does calibration affect alignment</p>
+            <h3 class="article-subsection">Why does calibration affect alignment</h3>
             <p>
                 The movement of the robot arm is through the inputs given by the scripts involved. But the actions of the robot might differ than the state that the simulation expects it to be in.
             </p>
@@ -428,38 +396,38 @@
                 The pose loaded into the simulation, if different from what our SO100 looks like, then how do we even align the camera. That doesn't work.
             </p>
 
-            <p class="article-subsection">What is the control frequency and does it matter</p>
+            <h3 class="article-subsection">What is the control frequency and does it matter</h3>
             <p>
                 The speed of the action output and how fast the robot moves. Faster smoother actions are usually difficult to tune.
             </p>
 
-            <p class="article-subsection">Why would you want this?</p>
+            <h3 class="article-subsection">Why would you want this?</h3>
             <p>
                 Because collecting 50s and 100s of demos is tough, and repeating that for every task you wanna do is tedious. A robot learning to move by itself, by making mistakes in simulation, is your answer.
             </p>
 
-            <p class="article-subsection">The PPO Repository</p>
+            <h3 class="article-subsection">The PPO Repository</h3>
             <p>
                 We started with the standard PPO implementation. The repository had everything: the actor-critic setup, the clipped objective, GAE for advantage estimation. PPO clips probability ratios to keep updates conservative. We trained with the proper conditions and this worked. Through this we learnt things but now we wanted to build on this. We had recently read about the flow matching policy gradients. PPO works with discrete probability updates but the task we were trying to do required smoother actions. Could we try with a flow policy was the question.
             </p>
             <p>
-                <video src="assets/ppo_cube.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
+                <video src="/assets/ppo_cube.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
                 <span class="media-caption">This is an example of a slower control frequency.</span>
             </p>
 
-            <p class="article-subsection">What is FPO?</p>
+            <h3 class="article-subsection">What is FPO?</h3>
             <p>
                 Flow Policy Optimization.<br><br>
                 The core idea: treat policy learning as a flow matching problem instead of traditional policy gradients.<br><br>
                 Think of it like this, instead of discrete jumps in probability space, you're learning continuous flows. Instead of gaussian curves, your policy becomes a vector field that smoothly transforms noise into actions. You're doing conditional flow matching on the action distribution.
             </p>
 
-            <p class="article-subsection">The math</p>
+            <h3 class="article-subsection">The math</h3>
             <p>
                 You sample noise ε ~ N(0,I), you learn a flow field that denoises it into actions. The loss is calculated over multiple Monte Carlo samples. Instead of KL divergence constraints like in PPO, you're optimizing flow matching losses.
             </p>
             <p>
-                <video src="assets/fpo_cube_picked.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
+                <video src="/assets/fpo_cube_picked.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
                 <span class="media-caption">Cube picking (FPO)</span>
             </p>
 
@@ -471,9 +439,9 @@
                 It was expected to converge quicker than PPO and give us positive results. However FPO explodes before any meaningful results can be seen. This is something we, all of this for, we recently saw a paper that dealt with this FPO exploding part. So there was a paper published on this recently.
             </p>
 
-            <p class="article-subsection">What does the paper do?</p>
+            <h3 class="article-subsection">What does the paper do?</h3>
 
-            <p class="article-subsection">FPO++</p>
+            <h3 class="article-subsection">FPO++</h3>
             <p>
                 FPO++ takes FPO and adds two critical improvements.
             </p>
@@ -498,25 +466,25 @@
                 Because increasing losses (making bad actions worse) needs more careful handling than decreasing losses (making good actions better). The asymmetry stabilizes training when learning from scratch. It prevents aggressive decreases in action likelihoods and aggressive increases in KL divergence.
             </p>
 
-            <p class="article-subsection">Wandb logging</p>
+            <h3 class="article-subsection">Wandb logging</h3>
             <p>
                 The graphs that we see for the FPO and PPO respectively.
             </p>
             <p>
-                <img src="assets/ppo_evalrewards.png" alt="PPO eval rewards">
+                <img src="/assets/ppo_evalrewards.png" alt="PPO eval rewards">
                 <span class="media-caption">PPO</span>
             </p>
             <p>
-                <img src="assets/fpo_eval_reward.png" alt="FPO eval reward">
+                <img src="/assets/fpo_eval_reward.png" alt="FPO eval reward">
                 <span class="media-caption">FPO</span>
             </p>
 
-            <p class="article-subsection">FPO vs PPO</p>
+            <h3 class="article-subsection">FPO vs PPO</h3>
             <p>
                 For contact rich manipulation, this stability is everything. We tried to incorporate this FPO++ improvements and
             </p>
 
-            <p class="article-subsection">The takeaways for us (in lerobot-sim2real)</p>
+            <h3 class="article-subsection">The takeaways for us (in lerobot-sim2real)</h3>
             <div class="article-box">
                 <p class="dash">Domain randomization on cube spawn positions, lighting, small variations in initial poses. The policy learned to handle it all.</p>
                 <p class="dash">Zero shot transfer worked. The robot picked up cubes it had never seen in simulation. No finetuning on real data. No demonstrations. Just pure sim2real with PPO or FPO.</p>
@@ -525,7 +493,7 @@
                 <p>Check out the repo. Try it yourself. Break things. Make it better. That's how we do robot learning.</p>
             </div>
 
-            <p class="article-section">2. Imitation learning</p>
+            <h2 class="article-section">2. Imitation learning</h2>
 
             <p>
                 This was supposed to be the first thing we do but it required a leader and a follower setup which made us experiment PPO sim2real first.
@@ -535,7 +503,7 @@
                 The most important skill native to robot learning has to be the behaviour of retrying that the robot learns. We teach it a singular task: in our case we taught our SO100 bot to pick up a wheel, put it in a cardboard box, come back and sit again.
             </p>
 
-            <p class="article-subsection">Leader follower setup?</p>
+            <h3 class="article-subsection">Leader follower setup?</h3>
             <p>
                 Two SO100s, one leading to teleoperate the other. The leader and the follower pair it is.
             </p>
@@ -548,7 +516,7 @@
                 3 hours of dataset collection, pushed to Hugging Face, training time of 1 hour and the policy was deployed. The dataset: <a href="https://huggingface.co/datasets/Dimios45/santra" target="_blank" rel="noopener">huggingface.co/datasets/Dimios45/santra</a>.
             </p>
             <p>
-                <video src="assets/teleop_video.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
+                <video src="/assets/teleop_video.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
                 <span class="media-caption">Teleop</span>
             </p>
 
@@ -556,7 +524,7 @@
                 Again simple laptop webcam it is with our SO100 plugged in to power supply, it learnt the skill. We actually had the bot doing the task clean. If the bot missed the wheel once it learnt to try again.
             </p>
 
-            <p class="article-subsection">The best part</p>
+            <h3 class="article-subsection">The best part</h3>
             <p>
                 Robot generalises some things. In the dataset the position of the wheel is marked but inference even with the position not known is good enough. Inference runs good on a laptop when you download the model weights.
             </p>
@@ -565,11 +533,11 @@
                 ACT action chunking transformer datasets can be used to train a single task only model, something that generalises when the data collection does not overfit. We require the environment to be constant and the bot learns to retry.
             </p>
             <p>
-                <video src="assets/ACT.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
+                <video src="/assets/ACT.mp4" controls loop muted playsinline style="max-width:100%; border-radius:6px;"></video>
                 <span class="media-caption">ACT</span>
             </p>
 
-            <p class="article-section">3. SmolVLA</p>
+            <h2 class="article-section">3. SmolVLA</h2>
 
             <p>
                 Then we had also read a lot of vision language action models, VLMs with an action head which generates robot actions. SmolVLA is supported by the LeRobot ecosystem. The same dataset trained with different training scripts. Requires 3 hours of training, more compute, more time.
@@ -587,7 +555,7 @@
                 I have had people asking why are programmed robots still better at doing tasks and jobs and why then is robot learning a thing. At its core the idea of robot learning is wild. The problems in the representation spaces and how well the compressions are able to justify the real environment is one of the most exciting things that matter. But robots figuring to solve problems and trying to learn the task they are meant to do remains the most interesting problem that humans should figure out.
             </p>
 
-            <p class="article-section">Conclusion</p>
+            <h2 class="article-section">Conclusion</h2>
 
             <div class="article-box">
                 <p>
@@ -601,7 +569,7 @@
                 </p>
             </div>
 
-            <p class="article-section">Acknowledgements</p>
+            <h2 class="article-section">Acknowledgements</h2>
             <p>
                 SO100 and LeRobot ecosystem.
             </p>
@@ -611,67 +579,9 @@
             <p>
                 We also thank the authors of Flow Matching Policy Gradients.
             </p>
+            <nav class="post-nav"><a href="/wonder/robot-learning/"><small>← previous</small>My introduction to &quot;Robotic Learning&quot;</a></nav>
         </article>
     </div>
 
-    <script>
-        const auroraCanvas = document.getElementById('aurora');
-        const auroraCtx = auroraCanvas.getContext('2d');
-
-        function resizeAurora() {
-            auroraCanvas.width = window.innerWidth;
-            auroraCanvas.height = window.innerHeight;
-        }
-        resizeAurora();
-        window.addEventListener('resize', resizeAurora);
-
-        class AuroraWave {
-            constructor(baseY, amplitude, frequency, speed, color) {
-                this.baseY = baseY;
-                this.amplitude = amplitude;
-                this.frequency = frequency;
-                this.speed = speed;
-                this.color = color;
-                this.offset = Math.random() * Math.PI * 2;
-            }
-
-            draw(time) {
-                auroraCtx.beginPath();
-                for (let x = 0; x <= auroraCanvas.width; x += 2) {
-                    const y = this.baseY +
-                        Math.sin(x * this.frequency + time * this.speed + this.offset) * this.amplitude +
-                        Math.sin(x * this.frequency * 0.5 + time * this.speed * 1.3) * this.amplitude * 0.5;
-                    if (x === 0) auroraCtx.moveTo(x, y);
-                    else auroraCtx.lineTo(x, y);
-                }
-                auroraCtx.lineTo(auroraCanvas.width, auroraCanvas.height);
-                auroraCtx.lineTo(0, auroraCanvas.height);
-                auroraCtx.closePath();
-                const gradient = auroraCtx.createLinearGradient(0, this.baseY - this.amplitude * 2, 0, this.baseY + this.amplitude * 3);
-                gradient.addColorStop(0, this.color.replace('ALPHA', '0'));
-                gradient.addColorStop(0.3, this.color.replace('ALPHA', '0.15'));
-                gradient.addColorStop(0.6, this.color.replace('ALPHA', '0.08'));
-                gradient.addColorStop(1, this.color.replace('ALPHA', '0'));
-                auroraCtx.fillStyle = gradient;
-                auroraCtx.fill();
-            }
-        }
-
-        const waves = [
-            new AuroraWave(auroraCanvas.height * 0.3, 60, 0.003, 0.0008, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.25, 80, 0.002, 0.0006, 'rgba(196, 30, 58, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.35, 70, 0.0025, 0.0007, 'rgba(255, 176, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.4, 50, 0.004, 0.0009, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.2, 90, 0.0015, 0.0005, 'rgba(255, 176, 0, ALPHA)')
-        ];
-
-        function animateAurora() {
-            auroraCtx.clearRect(0, 0, auroraCanvas.width, auroraCanvas.height);
-            const time = Date.now() * 0.001;
-            waves.forEach(wave => wave.draw(time));
-            requestAnimationFrame(animateAurora);
-        }
-        animateAurora();
-    </script>
 </body>
 </html>

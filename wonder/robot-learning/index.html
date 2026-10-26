@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot learning — Wonder — Vrushtee</title>
+    <title>My introduction to &quot;Robotic Learning&quot; — Wonder — Vrushtee</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="/assets/sky.js?v=5"></script>
     <style>
         :root {
             --deep-red: #8B0000;
             --medium-red: #C41E3A;
             --warm-yellow: #FFB000;
             --light-cream: #FFF9F0;
+            --peach: #FFFFFF;
             --text-dark: #1a1a1a;
         }
 
@@ -24,53 +26,12 @@
 
         body {
             font-family: 'Work Sans', sans-serif;
-            background: linear-gradient(135deg, var(--light-cream) 0%, #FFFBF5 100%);
+            background: var(--peach);
             color: var(--text-dark);
             line-height: 1.7;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-        }
-
-        #aurora {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0.4;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, var(--warm-yellow) 0%, transparent 70%);
-            opacity: 0.08;
-            z-index: -1;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%;
-            left: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, var(--medium-red) 0%, transparent 70%);
-            opacity: 0.06;
-            z-index: -1;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 20px) rotate(5deg); }
         }
 
         header {
@@ -264,16 +225,16 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="/assets/blog.css?v=3">
 </head>
 <body>
-    <canvas id="aurora"></canvas>
 
     <header>
-        <a href="index.html" class="logo">Vrushtee</a>
+        <a href="/" class="logo">Vrushtee</a>
         <nav class="header-nav">
-            <a href="wonder.html" class="active">Wonder</a>
-            <a href="work.html">Work</a>
-            <a href="imagine.html">Imagine</a>
+            <a href="/wonder/" class="active">Wonder</a>
+            <a href="/work/">Work</a>
+            <a href="/imagine/">Imagine</a>
         </nav>
         <div class="header-social">
             <a href="https://github.com/vruga" target="_blank" rel="noopener">GitHub</a>
@@ -282,10 +243,11 @@
     </header>
 
     <div class="container">
-        <a href="wonder.html" class="back-link">← Wonder</a>
+        <a href="/wonder/" class="back-link">← Wonder</a>
 
         <article class="article">
-            <h1 class="article-title">Robot learning</h1>
+            <p class="article-kicker">Wonder · 02</p>
+            <h1 class="article-title">My introduction to &quot;Robotic Learning&quot;</h1>
             <p class="article-meta">ACT / LeRobot / SO100</p>
 
             <p>
@@ -293,12 +255,12 @@
             </p>
 
             <p>
-                We used supervised imitation learning to train a <span class="hover-image-wrapper">3D-printed<img src="assets/3d.jpg" alt="3D printed parts" class="hover-image"></span> <span class="hover-image-wrapper">SO100<img src="assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></span> arm to pick up a wheel and place it in a box, entirely with LeRobot, Hugging Face datasets, and 3D-printed hardware.
+                We used supervised imitation learning to train a <span class="hover-image-wrapper">3D-printed<img src="/assets/3d.jpg" alt="3D printed parts" class="hover-image"></span> <span class="hover-image-wrapper">SO100<img src="/assets/so100_random.jpg" alt="SO100 robot arm" class="hover-image"></span> arm to pick up a wheel and place it in a box, entirely with LeRobot, Hugging Face datasets, and 3D-printed hardware.
             </p>
 
-            <p class="article-section">The Setting</p>
+            <h2 class="article-section">The Setting</h2>
 
-            <p class="article-section">Calibrating the Arm</p>
+            <h2 class="article-section">Calibrating the Arm</h2>
 
             <p>
                 The SO100 arm isn't an industrial manipulator. It's a 3D-printed PLA design, powered by STS3215 servos, and controlled via a Waveshare motor driver.
@@ -312,7 +274,7 @@
                 This calibration step anchors the dataset. Without it, no amount of training can save you.
             </p>
 
-            <p class="article-section">Collecting Data: boring</p>
+            <h2 class="article-section">Collecting Data: boring</h2>
 
             <p>
                 For data, the setup was minimal, with a Lenovo webcam positioned in front of the arm, framing the entire workspace: the arm, the wheel, the cardboard box, and enough of the table to give spatial context. Plain white background, normal room lighting. RGB only, plus proprioception data from LeRobot (joint angles, torques, etc.).
@@ -326,13 +288,13 @@
                 The dataset was then pushed directly to Hugging Face using LeRobot's automatic data pipeline, with no extra scripts or manual cleanup.
             </p>
 
-            <p class="article-section">Training ACT: Learning to Imitate</p>
+            <h2 class="article-section">Training ACT: Learning to Imitate</h2>
 
             <p>
                 With the dataset live, the ACT model was trained locally on an RTX 4090. No pretraining. Just data, patience, and GPU hours.
             </p>
 
-            <p class="article-section">Deployment and the not so subtle Signs of Learning</p>
+            <h2 class="article-section">Deployment and the not so subtle Signs of Learning</h2>
 
             <p>
                 Deployment was straightforward. The model was cloned locally, run via LeRobot's evaluation script, and deployed through the Feetech SDK at 30 Hz inference, sending servo commands to the follower arm in real time.
@@ -345,76 +307,9 @@
             <p>
                 Imitation learning isn't just copying. The model internalized cause and effect through supervised data alone.
             </p>
+            <nav class="post-nav"><a href="/wonder/so100/"><small>← previous</small>My first repo</a><a class="next" href="/wonder/robotics-three-things/"><small>next →</small>Robotics changes everyday but it is the same three things</a></nav>
         </article>
     </div>
 
-    <script>
-        const auroraCanvas = document.getElementById('aurora');
-        const auroraCtx = auroraCanvas.getContext('2d');
-
-        function resizeAurora() {
-            auroraCanvas.width = window.innerWidth;
-            auroraCanvas.height = window.innerHeight;
-        }
-        resizeAurora();
-        window.addEventListener('resize', resizeAurora);
-
-        class AuroraWave {
-            constructor(baseY, amplitude, frequency, speed, color) {
-                this.baseY = baseY;
-                this.amplitude = amplitude;
-                this.frequency = frequency;
-                this.speed = speed;
-                this.color = color;
-                this.offset = Math.random() * Math.PI * 2;
-            }
-
-            draw(time) {
-                auroraCtx.beginPath();
-
-                for (let x = 0; x <= auroraCanvas.width; x += 2) {
-                    const y = this.baseY +
-                             Math.sin(x * this.frequency + time * this.speed + this.offset) * this.amplitude +
-                             Math.sin(x * this.frequency * 0.5 + time * this.speed * 1.3) * this.amplitude * 0.5;
-
-                    if (x === 0) {
-                        auroraCtx.moveTo(x, y);
-                    } else {
-                        auroraCtx.lineTo(x, y);
-                    }
-                }
-
-                auroraCtx.lineTo(auroraCanvas.width, auroraCanvas.height);
-                auroraCtx.lineTo(0, auroraCanvas.height);
-                auroraCtx.closePath();
-
-                const gradient = auroraCtx.createLinearGradient(0, this.baseY - this.amplitude * 2, 0, this.baseY + this.amplitude * 3);
-                gradient.addColorStop(0, this.color.replace('ALPHA', '0'));
-                gradient.addColorStop(0.3, this.color.replace('ALPHA', '0.15'));
-                gradient.addColorStop(0.6, this.color.replace('ALPHA', '0.08'));
-                gradient.addColorStop(1, this.color.replace('ALPHA', '0'));
-
-                auroraCtx.fillStyle = gradient;
-                auroraCtx.fill();
-            }
-        }
-
-        const waves = [
-            new AuroraWave(auroraCanvas.height * 0.3, 60, 0.003, 0.0008, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.25, 80, 0.002, 0.0006, 'rgba(196, 30, 58, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.35, 70, 0.0025, 0.0007, 'rgba(255, 176, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.4, 50, 0.004, 0.0009, 'rgba(139, 0, 0, ALPHA)'),
-            new AuroraWave(auroraCanvas.height * 0.2, 90, 0.0015, 0.0005, 'rgba(255, 176, 0, ALPHA)')
-        ];
-
-        function animateAurora() {
-            auroraCtx.clearRect(0, 0, auroraCanvas.width, auroraCanvas.height);
-            const time = Date.now() * 0.001;
-            waves.forEach(wave => wave.draw(time));
-            requestAnimationFrame(animateAurora);
-        }
-
-        animateAurora();
-    </script>
 </body>
 </html>
